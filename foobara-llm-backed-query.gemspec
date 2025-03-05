@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Miles Georgi"]
   spec.email = ["azimux@gmail.com"]
 
-  spec.summary = "No description. Add one."
+  spec.summary = "Provides an easy way to implement a command whose logic is managed by an LLM"
   spec.homepage = "https://github.com/foobara/llm-backed-query"
   spec.license = "MPL-2.0"
   spec.required_ruby_version = Foobara::LlmBackedQuery::MINIMUM_RUBY_VERSION
