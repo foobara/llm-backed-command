@@ -60,10 +60,7 @@ GEM
       bigdecimal
       foobara-lru-cache
       foobara-util
-    foobara-ai (0.0.4)
-      foobara-anthropic-api
-      foobara-ollama-api
-      foobara-open-ai-api
+    foobara-ai (0.0.10)
     foobara-anthropic-api (0.0.10)
       foobara-cached-command
       foobara-http-api-command
@@ -100,11 +97,6 @@ GEM
       foobara
       foobara-files-generator
     foobara-lru-cache (0.0.2)
-    foobara-ollama-api (0.0.4)
-      foobara-http-api-command
-    foobara-open-ai-api (0.0.12)
-      foobara-cached-command
-      foobara-http-api-command
     foobara-organization-generator (0.0.2)
       foobara
       foobara-files-generator
@@ -281,6 +273,7 @@ PLATFORMS
 
 DEPENDENCIES
   foob
+  foobara-anthropic-api
   foobara-dotenv-loader
   foobara-llm-backed-command!
   foobara-rubocop-rules

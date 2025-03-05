@@ -21,6 +21,7 @@ end
 Dir["#{__dir__}/support/**/*.rb"].each { |f| require f }
 
 require "foobara/spec_helpers/all"
+require "foobara/anthropic_api"
 
 VCR.use_cassette("list_models", record: :none) do
   require_relative "../boot/finish"

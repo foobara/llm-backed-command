@@ -27,6 +27,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "foobara-anthropic-api"
   gem "foobara-spec-helpers"
   gem "rspec"
   gem "rspec-its"
