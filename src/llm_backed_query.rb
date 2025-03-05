@@ -1,8 +1,3 @@
-# TODO: move serializers to their own project so we don't have to include command_connectors to use them
-require "foobara/command_connectors"
-require "foobara/ai"
-require "foobara/json_schema_generator"
-
 # NOTE: You can add the following inputs if you'd like, or, create methods with these names
 # on the class.
 #
@@ -46,7 +41,9 @@ module Foobara
                      raise "PRIMARY_KEY_ONLY depth not yet implemented"
                    # :nocov:
                    else
+                     # :nocov:
                      raise "Unknown depth: #{depth}"
+                     # :nocov:
                    end
 
       # cache this?

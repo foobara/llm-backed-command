@@ -51,7 +51,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 05 Mar 2025 00:43:41 GMT
+      - Wed, 05 Mar 2025 00:54:23 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -63,27 +63,27 @@ http_interactions:
       Anthropic-Ratelimit-Requests-Remaining:
       - '49'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2025-03-05T00:43:40Z'
+      - '2025-03-05T00:54:22Z'
       Anthropic-Ratelimit-Input-Tokens-Limit:
       - '20000'
       Anthropic-Ratelimit-Input-Tokens-Remaining:
       - '20000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2025-03-05T00:43:41Z'
+      - '2025-03-05T00:54:22Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '8000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '8000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2025-03-05T00:43:41Z'
+      - '2025-03-05T00:54:23Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '28000'
       Anthropic-Ratelimit-Tokens-Remaining:
       - '28000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2025-03-05T00:43:41Z'
+      - '2025-03-05T00:54:22Z'
       Request-Id:
-      - req_011tToovNpQtseSKifkjeL1X
+      - req_01B81EJ8iaFEfNbwNpeEmABs
       Anthropic-Organization-Id:
       - 7a8e3751-3b70-4f90-a3ce-07f57c9d0bfc
       Via:
@@ -95,10 +95,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 91b594946d2beb36-SJC
+      - 91b5a43c5edf230e-SJC
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"msg_016cEdCShm7iUbYDeTKf57RV","type":"message","role":"assistant","model":"claude-3-7-sonnet-20250219","content":[{"type":"text","text":"{\"verified\":[{\"possible_us_state\":{\"name\":\"Oregon\"},\"spelling_correction_required\":false,\"corrected_spelling\":null},{\"possible_us_state\":{\"name\":\"Yutah\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Utah\"},{\"possible_us_state\":{\"name\":\"Misisipi\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Mississippi\"}],\"rejected\":[{\"name\":\"Grand
+      string: '{"id":"msg_01LGwz8yfE8dndrb5wSGaVH3","type":"message","role":"assistant","model":"claude-3-7-sonnet-20250219","content":[{"type":"text","text":"{\"verified\":[{\"possible_us_state\":{\"name\":\"Oregon\"},\"spelling_correction_required\":false,\"corrected_spelling\":null},{\"possible_us_state\":{\"name\":\"Yutah\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Utah\"},{\"possible_us_state\":{\"name\":\"Misisipi\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Mississippi\"}],\"rejected\":[{\"name\":\"Grand
         Rapids\"}]}"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":669,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":109}}'
-  recorded_at: Wed, 05 Mar 2025 00:43:41 GMT
+  recorded_at: Wed, 05 Mar 2025 00:54:23 GMT
 recorded_with: VCR 6.3.1

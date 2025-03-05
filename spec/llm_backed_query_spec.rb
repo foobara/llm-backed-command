@@ -15,7 +15,8 @@ RSpec.describe Foobara::LlmBackedQuery do
 
     stub_class "VerifiedUsState", Foobara::Model do
       attributes do
-        possible_us_state PossibleUsState, :required, "The original possible US state that was passed in"
+        possible_us_state PossibleUsState, :required,
+                          "The original possible US state that was passed in"
         spelling_correction_required :boolean, :required, "Whether or not the original spelling was correct"
         corrected_spelling :string, :allow_nil,
                            "If the original spelling was incorrect, the corrected spelling will be here"
@@ -25,6 +26,8 @@ RSpec.describe Foobara::LlmBackedQuery do
         possible_us_state.name
       end
     end
+
+    llm_model
 
     stub_class "SelectUsStateNamesAndCorrectTheirSpelling", Foobara::Command do
       description <<~DESCRIPTION
@@ -52,7 +55,6 @@ RSpec.describe Foobara::LlmBackedQuery do
 
       inputs do
         list_of_possible_states [PossibleUsState]
-        llm_model :symbol, one_of: Foobara::Ai::AnswerBot::Types::ModelEnum
       end
 
       result do
@@ -70,7 +72,6 @@ RSpec.describe Foobara::LlmBackedQuery do
 
   let(:inputs) do
     {
-      llm_model:,
       list_of_possible_states:
     }
   end
@@ -86,25 +87,56 @@ RSpec.describe Foobara::LlmBackedQuery do
 
   let(:llm_model) { "claude-3-7-sonnet-20250219" }
 
-  it "is successful", vcr: { record: :none } do
-    expect(outcome).to be_success
+  context "with an llm_model method" do
+    before do
+      model = llm_model
+      command_class.define_method :llm_model do
+        model
+      end
+    end
 
-    expect(result[:verified].length).to eq(3)
+    it "is successful", vcr: { record: :none } do
+      expect(outcome).to be_success
 
-    expect(result[:verified][0].possible_us_state.name).to eq("Oregon")
-    expect(result[:verified][0].spelling_correction_required).to eq(false)
-    expect(result[:verified][0].corrected_spelling).to eq(nil)
+      expect(result[:verified].length).to eq(3)
 
-    expect(result[:verified][1].possible_us_state.name).to eq("Yutah")
-    expect(result[:verified][1].spelling_correction_required).to eq(true)
-    expect(result[:verified][1].corrected_spelling).to eq("Utah")
+      expect(result[:verified][0].possible_us_state.name).to eq("Oregon")
+      expect(result[:verified][0].spelling_correction_required).to be(false)
+      expect(result[:verified][0].corrected_spelling).to be_nil
 
-    expect(result[:verified][2].possible_us_state.name).to eq("Misisipi")
-    expect(result[:verified][2].spelling_correction_required).to eq(true)
-    expect(result[:verified][2].corrected_spelling).to eq("Mississippi")
+      expect(result[:verified][1].possible_us_state.name).to eq("Yutah")
+      expect(result[:verified][1].original_spelling).to eq("Yutah")
+      expect(result[:verified][1].spelling_correction_required).to be(true)
+      expect(result[:verified][1].corrected_spelling).to eq("Utah")
 
-    expect(result[:rejected].length).to eq(1)
+      expect(result[:verified][2].possible_us_state.name).to eq("Misisipi")
+      expect(result[:verified][2].spelling_correction_required).to be(true)
+      expect(result[:verified][2].corrected_spelling).to eq("Mississippi")
 
-    expect(result[:rejected][0].name).to eq("Grand Rapids")
+      expect(result[:rejected].length).to eq(1)
+
+      expect(result[:rejected][0].name).to eq("Grand Rapids")
+    end
+  end
+
+  context "when adding llm_model and association_depth inputs" do
+    before do
+      command_class.add_inputs do
+        llm_model :symbol, one_of: Foobara::Ai::AnswerBot::Types::ModelEnum, default: "claude-3-7-sonnet-20250219"
+        association_depth :symbol,
+                          one_of: Foobara::JsonSchemaGenerator::AssociationDepth,
+                          default: Foobara::JsonSchemaGenerator::AssociationDepth::ATOM
+      end
+    end
+
+    it "is successful", vcr: { record: :none } do
+      expect(outcome).to be_success
+
+      expect(result[:verified].length).to eq(3)
+      expect(result[:verified][2].corrected_spelling).to eq("Mississippi")
+
+      expect(result[:rejected].length).to eq(1)
+      expect(result[:rejected][0].name).to eq("Grand Rapids")
+    end
   end
 end
