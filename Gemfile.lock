@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    foobara-llm-backed-query (0.0.1)
+    foobara-llm-backed-command (0.0.1)
       foobara-ai
       foobara-json-schema-generator
 
@@ -282,7 +282,7 @@ PLATFORMS
 DEPENDENCIES
   foob
   foobara-dotenv-loader
-  foobara-llm-backed-query!
+  foobara-llm-backed-command!
   foobara-rubocop-rules
   foobara-spec-helpers
   guard-rspec
@@ -303,4 +303,4 @@ RUBY VERSION
    ruby 3.4.2p28
 
 BUNDLED WITH
-   2.6.3
+   2.6.5

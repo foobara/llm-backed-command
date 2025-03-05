@@ -6,7 +6,7 @@
 #   llm_model :symbol, one_of: Foobara::Ai::AnswerBot::Types::ModelEnum
 # end
 module Foobara
-  module LlmBackedQuery
+  module LlmBackedCommand
     include Concern
 
     on_include do

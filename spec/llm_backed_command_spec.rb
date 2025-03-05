@@ -1,4 +1,4 @@
-RSpec.describe Foobara::LlmBackedQuery do
+RSpec.describe Foobara::LlmBackedCommand do
   after do
     Foobara.reset_alls
   end

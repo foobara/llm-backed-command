@@ -6,4 +6,4 @@ require "foobara/json_schema_generator"
 
 Foobara::Util.require_directory "#{__dir__}/../../src"
 
-Foobara::Monorepo.project "llm_backed_query", project_path: "#{__dir__}/../../"
+Foobara::Monorepo.project "llm_backed_command", project_path: "#{__dir__}/../../"

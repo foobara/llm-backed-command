@@ -1,5 +1,5 @@
 module Foobara
-  module LlmBackedQuery
+  module LlmBackedCommand
     VERSION = "0.0.1".freeze
 
     local_ruby_version = File.read("#{__dir__}/.ruby-version").chomp

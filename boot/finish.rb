@@ -11,7 +11,7 @@ skip = ["start.rb", "finish.rb", *first, *last]
 
 first.each { |f| require_relative f if File.exist?("#{__dir__}/#{f}") }
 
-require "foobara/llm_backed_query"
+require "foobara/llm_backed_command"
 
 Dir.entries(__dir__).each do |boot_file|
   next unless boot_file.end_with?(".rb")

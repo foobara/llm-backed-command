@@ -1,15 +1,15 @@
 require_relative "version"
 
 Gem::Specification.new do |spec|
-  spec.name = "foobara-llm-backed-query"
-  spec.version = Foobara::LlmBackedQuery::VERSION
+  spec.name = "foobara-llm-backed-command"
+  spec.version = Foobara::LlmBackedCommand::VERSION
   spec.authors = ["Miles Georgi"]
   spec.email = ["azimux@gmail.com"]
 
   spec.summary = "Provides an easy way to implement a command whose logic is managed by an LLM"
-  spec.homepage = "https://github.com/foobara/llm-backed-query"
+  spec.homepage = "https://github.com/foobara/llm-backed-command"
   spec.license = "MPL-2.0"
-  spec.required_ruby_version = Foobara::LlmBackedQuery::MINIMUM_RUBY_VERSION
+  spec.required_ruby_version = Foobara::LlmBackedCommand::MINIMUM_RUBY_VERSION
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
