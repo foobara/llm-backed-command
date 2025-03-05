@@ -5,6 +5,7 @@ ruby Foobara::LlmBackedQuery::MINIMUM_RUBY_VERSION
 
 gemspec
 
+# gem "foobara-ai", path: "../ai"
 gem "foobara-dotenv-loader"
 
 gem "rake"
