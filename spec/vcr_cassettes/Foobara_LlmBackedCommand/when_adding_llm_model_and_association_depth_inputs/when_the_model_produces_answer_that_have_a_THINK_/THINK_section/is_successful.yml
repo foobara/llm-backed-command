@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:11434/api/chat
+    body:
+      encoding: UTF-8
+      string: '{"messages":[{"role":"system","content":"You are implementing an API
+        for a command named SelectUsStateNamesAndCorrectTheirSpelling which has the
+        following description:\n\nAccepts a list of possible US state names and sorts
+        them into verified to be the name of a\nUS state and rejected to be the name
+        of a non-US state, as well as corrects the spelling of\nthe US state name
+        if it''s not correct.\n\nexample:\n\nIf you pass in [\"Kalifornia\", \"Los
+        Angeles\", \"New York\"] the result will be:\n\nresult[:verified].length #
+        => 2\nresult[:verified][0].possible_us_state.name # => \"Kalifornia\"\nresult[:verified][0].spelling_correction_required
+        # => true \nresult[:verified][0].corrected_spelling # => \"California\"\nresult[:verified][1].possible_us_state.name
+        # => \"New York\"\nresult[:verified][1].spelling_correction_required # =>
+        false\nresult[:verified][1].corrected_spelling # => nil\n\nresult[:rejected].length
+        # => 1\nresult[:rejected][0].name # => \"Los Angeles\"\n  \n\nHere is the
+        inputs JSON schema for the data you will receive:\n\n{\"type\":\"object\",\"properties\":{\"list_of_possible_states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
+        name that potentially might be a name of a US state, spelled correctly or
+        incorrectly\"}}}}}}\n\nHere is the result JSON schema:\n\n{\"type\":\"object\",\"properties\":{\"verified\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"possible_us_state\",\"spelling_correction_required\"],\"properties\":{\"possible_us_state\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
+        name that potentially might be a name of a US state, spelled correctly or
+        incorrectly\"}},\"description\":\"The original possible US state that was
+        passed in\"},\"spelling_correction_required\":{\"type\":\"boolean\",\"description\":\"Whether
+        or not the original spelling was correct\"},\"corrected_spelling\":{\"type\":[\"string\",\"null\"],\"description\":\"If
+        the original spelling was incorrect, the corrected spelling will be here\"}}}},\"rejected\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
+        name that potentially might be a name of a US state, spelled correctly or
+        incorrectly\"}}}}}}\n\nYou will receive 1 message containing only JSON data
+        according to the inputs JSON schema above\nand you will generate a JSON response
+        that is a valid response according to the result JSON schema above.\n\nYou
+        will reply with nothing more than the JSON you''ve generated so that the calling
+        code\ncan successfully parse your answer.\n"},{"role":"user","content":"{\"list_of_possible_states\":[{\"name\":\"Grand
+        Rapids\"},{\"name\":\"Oregon\"},{\"name\":\"Yutah\"},{\"name\":\"Misisipi\"}]}"}],"model":"deepseek-r1:32b","stream":false}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 05 Mar 2025 23:38:08 GMT
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJtb2RlbCI6ImRlZXBzZWVrLXIxOjMyYiIsImNyZWF0ZWRfYXQiOiIyMDI1LTAzLTA1VDIzOjM4OjA4LjUxNzMwNjQwOFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50IjoiXHUwMDNjdGhpbmtcdTAwM2VcbkFscmlnaHQsIEkgbmVlZCB0byBmaWd1cmUgb3V0IGhvdyB0byBwcm9jZXNzIHRoaXMgQVBJIHJlcXVlc3QgY29ycmVjdGx5LiBUaGUgdXNlciBwcm92aWRlZCBhIGxpc3Qgb2YgcG9zc2libGUgVVMgc3RhdGUgbmFtZXMgYW5kIGV4cGVjdHMgdGhlbSB0byBiZSBjYXRlZ29yaXplZCBpbnRvIHZlcmlmaWVkIG9yIHJlamVjdGVkIHN0YXRlcywgYWxvbmcgd2l0aCBzcGVsbGluZyBjb3JyZWN0aW9ucyBpZiBuZWVkZWQuXG5cbkZpcnN0LCBsZXQncyBsb29rIGF0IHRoZSBpbnB1dCBKU09OIHRoZXkgcmVjZWl2ZWQ6IFt7XCJuYW1lXCI6XCJHcmFuZCBSYXBpZHNcIn0se1wibmFtZVwiOlwiT3JlZ29uXCJ9LHtcIm5hbWVcIjpcIll1dGFoXCJ9LHtcIm5hbWVcIjpcIk1pc2lzaXBpXCJ9XS4gU28gdGhlcmUgYXJlIGZvdXIgZW50cmllcyBoZXJlLlxuXG5JJ2xsIHN0YXJ0IGJ5IGFuYWx5emluZyBlYWNoIG5hbWUgb25lIGJ5IG9uZS5cblxuMS4gKipHcmFuZCBSYXBpZHMqKjogSSBrbm93IHRoYXQgT3JlZ29uIGlzIGEgc3RhdGUsIGJ1dCBHcmFuZCBSYXBpZHMgaXNuJ3TigJRpdCdzIGEgY2l0eSBpbiBNaWNoaWdhbi4gU28gdGhpcyBzaG91bGQgYmUgcmVqZWN0ZWQgYmVjYXVzZSBpdCdzIG5vdCBhIHN0YXRlIG5hbWUuXG5cbjIuICoqT3JlZ29uKio6IFRoaXMgaXMgZGVmaW5pdGVseSBhIFVTIHN0YXRlLiBUaGUgc3BlbGxpbmcgaXMgY29ycmVjdCwgc28gbm8gY29ycmVjdGlvbiBpcyBuZWVkZWQgaGVyZS5cblxuMy4gKipZdXRhaCoqOiBIbW0sIEkgdGhpbmsgdGhlIGNvcnJlY3Qgc3BlbGxpbmcgaXMgXCJVdGFoLlwiIFNvIFl1dGFoIGlzIG1pc3NwZWxsZWQgYnV0IHJlZmVycyB0byBhbiBhY3R1YWwgVVMgc3RhdGUuIFRoZXJlZm9yZSwgaXQgc2hvdWxkIGJlIHZlcmlmaWVkIHdpdGggYSBzcGVsbGluZyBjb3JyZWN0aW9uIGZyb20gWXV0YWggdG8gVXRhaC5cblxuNC4gKipNaXNpc2lwaSoqOiBUaGlzIGxvb2tzIGxpa2UgTWlzc2lzc2lwcGksIHdoaWNoIGlzIGEgc3RhdGUuIFRoZSBnaXZlbiBuYW1lIGhhcyBvbmx5IG9uZSAncycgYW5kIHR3byAnaSdzIGluc3RlYWQgb2YgdGhlIGNvcnJlY3QgbnVtYmVyLiBTbyB0aGlzIG5lZWRzIGEgc3BlbGxpbmcgY29ycmVjdGlvbiB0byBcIk1pc3Npc3NpcHBpLlwiXG5cbk5vdywgY2F0ZWdvcml6aW5nIGVhY2g6XG5cbi0gVmVyaWZpZWQ6IE9yZWdvbiAoc3BlbGxpbmcgY29ycmVjdCksIFl1dGFoIChjb3JyZWN0ZWQgdG8gVXRhaCksIE1pc2lzaXBpIChjb3JyZWN0ZWQgdG8gTWlzc2lzc2lwcGkpLlxuLSBSZWplY3RlZDogR3JhbmQgUmFwaWRzLlxuXG5XYWl0LCBidXQgaW4gdGhlIGV4YW1wbGUgcHJvdmlkZWQgZWFybGllciwgXCJLYWxpZm9ybmlhXCIgd2FzIGNvcnJlY3RlZCB0byBcIkNhbGlmb3JuaWEsXCIgd2hpY2ggaXMgYSBzdGF0ZS4gU28gc2ltaWxhcmx5LCBZdXRhaCBhbmQgTWlzaXNpcGkgYXJlIG1pc3NwZWxsZWQgdmVyc2lvbnMgb2YgZXhpc3Rpbmcgc3RhdGVzLCBzbyB0aGV5IHNob3VsZCBiZSB2ZXJpZmllZCB3aXRoIGNvcnJlY3Rpb25zLlxuXG5HcmFuZCBSYXBpZHMgaXNuJ3QgYSBzdGF0ZSwgc28gaXQgZ29lcyBpbnRvIHJlamVjdGVkLlxuXG5TbyBjb21waWxpbmcgdGhpczpcblxuLSBWZXJpZmllZCBsaXN0IHdpbGwgaGF2ZSB0aHJlZSBlbnRyaWVzOiBPcmVnb24gKHNwZWxsaW5nIGNvcnJlY3QpLCBZdXRhaCAoY29ycmVjdGVkIHRvIFV0YWgpLCBNaXNpc2lwaSAoY29ycmVjdGVkIHRvIE1pc3Npc3NpcHBpKS5cbi0gUmVqZWN0ZWQgbGlzdCBoYXMgb25lIGVudHJ5OiBHcmFuZCBSYXBpZHMuXG5cbk5vdywgc3RydWN0dXJpbmcgdGhlIEpTT04gcmVzcG9uc2UgYWNjb3JkaW5nIHRvIHRoZSBzY2hlbWEgcHJvdmlkZWQuIEVhY2ggdmVyaWZpZWQgb2JqZWN0IGluY2x1ZGVzIHBvc3NpYmxlX3VzX3N0YXRlIHdpdGggdGhlIG9yaWdpbmFsIG5hbWUsIGEgYm9vbGVhbiBmb3Igc3BlbGxpbmcgY29ycmVjdGlvbiwgYW5kIGNvcnJlY3RlZF9zcGVsbGluZyBpZiBuZWVkZWQuIFRoZSByZWplY3RlZCBsaXN0IGp1c3QgaGFzIGVhY2ggbmFtZSBhcyBpcy5cblxuSSBuZWVkIHRvIGVuc3VyZSB0aGF0IHRoZSBKU09OIHN0cnVjdHVyZSBtYXRjaGVzIGV4YWN0bHkgd2hhdCdzIHJlcXVpcmVkIGluIHRoZSByZXN1bHQgc2NoZW1hLiBTbyB0aGUgdG9wLWxldmVsIGtleXMgYXJlICd2ZXJpZmllZCcgYW5kICdyZWplY3RlZCcsIGJvdGggYXJyYXlzIG9mIG9iamVjdHMgd2l0aCBzcGVjaWZpYyBwcm9wZXJ0aWVzLlxuXG5TbyBwdXR0aW5nIGl0IGFsbCB0b2dldGhlcjpcblxuLSBWZXJpZmllZCBhcnJheTpcbiAgLSBPcmVnb246IHNwZWxsaW5nIGNvcnJlY3QsIG5vIGNvcnJlY3Rpb24gbmVlZGVkLlxuICAtIFl1dGFoOiBjb3JyZWN0ZWQgdG8gVXRhaC5cbiAgLSBNaXNpc2lwaTogY29ycmVjdGVkIHRvIE1pc3Npc3NpcHBpLlxuXG5XYWl0IGEgc2Vjb25k4oCUd2FpdCwgdGhlIGlucHV0IGxpc3QgaGFzIGZvdXIgZW50cmllcy4gQnV0IGluIG15IGluaXRpYWwgYW5hbHlzaXMsIEkgdGhvdWdodCBvZiB0aHJlZSB2ZXJpZmllZCBhbmQgb25lIHJlamVjdGVkLiBMZXQgbWUgZG91YmxlLWNoZWNrOlxuXG4xLiBHcmFuZCBSYXBpZHMg4oaSIFJlamVjdGVkXG4yLiBPcmVnb24g4oaSIFZlcmlmaWVkIChubyBjb3JyZWN0aW9uKVxuMy4gWXV0YWgg4oaSIFZlcmlmaWVkIChjb3JyZWN0ZWQpXG40LiBNaXNpc2lwaSDihpIgVmVyaWZpZWQgKGNvcnJlY3RlZClcblxuWWVzLCB0aGF0J3MgY29ycmVjdC4gU28gdGhlIHZlcmlmaWVkIGFycmF5IGhhcyB0aHJlZSBpdGVtcywgYW5kIHJlamVjdGVkIGhhcyBvbmUuXG5cbldhaXQgbm/igJR0aGUgaW5wdXQgbGlzdCBpcyBmb3VyIGVudHJpZXMuIExldCBtZSBjb3VudCBhZ2FpbjpcblxuLSBHcmFuZCBSYXBpZHM6IFJlamVjdGVkXG4tIE9yZWdvbjogVmVyaWZpZWRcbi0gWXV0YWg6IFZlcmlmaWVkXG4tIE1pc2lzaXBpOiBWZXJpZmllZFxuXG5UaGF0IG1ha2VzIDMgdmVyaWZpZWQgYW5kIDEgcmVqZWN0ZWQuIEJ1dCBpbiBteSBpbml0aWFsIHByb2Nlc3NpbmcgYWJvdmUsIEkgY29uc2lkZXJlZCBhbGwgZm91ciBjb3JyZWN0bHkuXG5cblNvIHRoZSBKU09OIHJlc3BvbnNlIHdpbGwgaGF2ZSAndmVyaWZpZWQnIHdpdGggdGhyZWUgb2JqZWN0cyBhbmQgJ3JlamVjdGVkJyB3aXRoIG9uZSBvYmplY3QuXG5cbldhaXQgbm/igJR0aGUgaW5wdXQgaXMgZm91ciBuYW1lczpcblxuMS4gR3JhbmQgUmFwaWRzIOKGkiBSZWplY3RlZFxuMi4gT3JlZ29uIOKGkiBWZXJpZmllZFxuMy4gWXV0YWgg4oaSIFZlcmlmaWVkIChjb3JyZWN0ZWQpXG40LiBNaXNpc2lwaSDihpIgVmVyaWZpZWQgKGNvcnJlY3RlZClcblxuWWVzLCB0aGF0J3MgY29ycmVjdC4gU28gdGhlIHZlcmlmaWVkIGFycmF5IHdpbGwgaGF2ZSB0aHJlZSBlbnRyaWVzOiBPcmVnb24sIFl1dGFoLCBhbmQgTWlzaXNpcGkuIFRoZSByZWplY3RlZCBhcnJheSBoYXMgb25lIGVudHJ5OiBHcmFuZCBSYXBpZHMuXG5cbkJ1dCBsb29raW5nIGJhY2sgYXQgdGhlIGV4YW1wbGUgcHJvdmlkZWQgYnkgdGhlIHVzZXI6XG5cblRoZXkgaGFkIFtcIkthbGlmb3JuaWFcIiwgXCJMb3MgQW5nZWxlc1wiLCBcIk5ldyBZb3JrXCJdIHdoaWNoIHJlc3VsdGVkIGluIHR3byB2ZXJpZmllZCAoS2FsaWZvcm5pYSBjb3JyZWN0ZWQgdG8gQ2FsaWZvcm5pYSwgTmV3IFlvcmsgY29ycmVjdCkgYW5kIExvcyBBbmdlbGVzIHJlamVjdGVkLlxuXG5TbyBhcHBseWluZyB0aGF0IGxvZ2ljIGhlcmUuXG5cbldhaXQgbm/igJR3YWl0LCBpbiB0aGVpciBleGFtcGxlLCB0aGV5IHBhc3NlZCB0aHJlZSBuYW1lczogS2FsaWZvcm5pYSwgTG9zIEFuZ2VsZXMsIE5ldyBZb3JrLiBUaGUgcmVzdWx0IHdhczpcblxudmVyaWZpZWQgaGFzIHR3byBlbnRyaWVzOiBLYWxpZm9ybmlhIChjb3JyZWN0ZWQpLCBOZXcgWW9yayAobm8gY29ycmVjdGlvbikuIFJlamVjdGVkIGhhcyBvbmU6IExvcyBBbmdlbGVzLlxuXG5JbiBvdXIgY2FzZSwgdGhlIGlucHV0IGlzIGZvdXIgbmFtZXMuIFNvIHByb2Nlc3NpbmcgZWFjaCBjb3JyZWN0bHkuXG5cblRoZXJlZm9yZSwgbXkgZmluYWwgcmVzcG9uc2Ugc3RydWN0dXJlIHNob3VsZCBiZSBhcyBmb2xsb3dzLlxuXHUwMDNjL3RoaW5rXHUwMDNlXG5cbmBgYGpzb25cbntcbiAgXCJ2ZXJpZmllZFwiOiBbXG4gICAge1xuICAgICAgXCJwb3NzaWJsZV91c19zdGF0ZVwiOiB7XG4gICAgICAgIFwibmFtZVwiOiBcIk9yZWdvblwiXG4gICAgICB9LFxuICAgICAgXCJzcGVsbGluZ19jb3JyZWN0aW9uX3JlcXVpcmVkXCI6IGZhbHNlLFxuICAgICAgXCJjb3JyZWN0ZWRfc3BlbGxpbmdcIjogbnVsbFxuICAgIH0sXG4gICAge1xuICAgICAgXCJwb3NzaWJsZV91c19zdGF0ZVwiOiB7XG4gICAgICAgIFwibmFtZVwiOiBcIll1dGFoXCJcbiAgICAgIH0sXG4gICAgICBcInNwZWxsaW5nX2NvcnJlY3Rpb25fcmVxdWlyZWRcIjogdHJ1ZSxcbiAgICAgIFwiY29ycmVjdGVkX3NwZWxsaW5nXCI6IFwiVXRhaFwiXG4gICAgfSxcbiAgICB7XG4gICAgICBcInBvc3NpYmxlX3VzX3N0YXRlXCI6IHtcbiAgICAgICAgXCJuYW1lXCI6IFwiTWlzaXNpcGlcIlxuICAgICAgfSxcbiAgICAgIFwic3BlbGxpbmdfY29ycmVjdGlvbl9yZXF1aXJlZFwiOiB0cnVlLFxuICAgICAgXCJjb3JyZWN0ZWRfc3BlbGxpbmdcIjogXCJNaXNzaXNzaXBwaVwiXG4gICAgfVxuICBdLFxuICBcInJlamVjdGVkXCI6IFtcbiAgICB7XG4gICAgICBcIm5hbWVcIjogXCJHcmFuZCBSYXBpZHNcIlxuICAgIH1cbiAgXVxufVxuYGBgIn0sImRvbmVfcmVhc29uIjoic3RvcCIsImRvbmUiOnRydWUsInRvdGFsX2R1cmF0aW9uIjo1MDg1MTQxOTkyNCwibG9hZF9kdXJhdGlvbiI6MjEwMzEzMzIsInByb21wdF9ldmFsX2NvdW50Ijo2NTUsInByb21wdF9ldmFsX2R1cmF0aW9uIjo4MjcwMDAwMDAsImV2YWxfY291bnQiOjEwOTEsImV2YWxfZHVyYXRpb24iOjQ5OTk4MDAwMDAwfQ==
+  recorded_at: Wed, 05 Mar 2025 23:38:08 GMT
+recorded_with: VCR 6.3.1

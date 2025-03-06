@@ -138,5 +138,26 @@ RSpec.describe Foobara::LlmBackedCommand do
       expect(result[:rejected].length).to eq(1)
       expect(result[:rejected][0].name).to eq("Grand Rapids")
     end
+
+    context "when the model produces answer that have a <THINK></THINK> section" do
+      let(:llm_model) { "deepseek-r1:32b" }
+
+      let(:inputs) do
+        {
+          list_of_possible_states:,
+          llm_model:
+        }
+      end
+
+      it "is successful", vcr: { record: :none } do
+        expect(outcome).to be_success
+
+        expect(result[:verified].length).to eq(3)
+        expect(result[:verified][2].corrected_spelling).to eq("Mississippi")
+
+        expect(result[:rejected].length).to eq(1)
+        expect(result[:rejected][0].name).to eq("Grand Rapids")
+      end
+    end
   end
 end

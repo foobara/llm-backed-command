@@ -71,8 +71,10 @@ module Foobara
     end
 
     def parse_answer
+      stripped_answer = answer.gsub(/<THINK>.*?<\/THINK>/mi, "")
+      stripped_answer = stripped_answer.gsub(/^\s*```\w*\n(.*)```\s*\z/m, "\\1")
       # TODO: should we verify against json-schema or no?
-      self.parsed_answer = JSON.parse(answer)
+      self.parsed_answer = JSON.parse(stripped_answer)
     end
 
     module ClassMethods

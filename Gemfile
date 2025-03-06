@@ -28,6 +28,7 @@ end
 
 group :test do
   gem "foobara-anthropic-api"
+  gem "foobara-ollama-api"
   gem "foobara-spec-helpers"
   gem "rspec"
   gem "rspec-its"
