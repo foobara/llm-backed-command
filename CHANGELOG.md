@@ -1,3 +1,7 @@
+## [0.0.4] - 2025-03-06
+
+- Defer to downstream default model if none specifiedz
+
 ## [0.0.3] - 2025-03-05
 
 - Support answers with an explanation followed by the proper answer in fence posts

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    foobara-llm-backed-command (0.0.3)
+    foobara-llm-backed-command (0.0.4)
       foobara-ai
       foobara-json-schema-generator
 
@@ -60,7 +60,7 @@ GEM
       bigdecimal
       foobara-lru-cache
       foobara-util
-    foobara-ai (0.0.10)
+    foobara-ai (0.0.11)
     foobara-anthropic-api (0.0.10)
       foobara-cached-command
       foobara-http-api-command
@@ -89,7 +89,7 @@ GEM
       foobara-files-generator
     foobara-files-generator (0.0.5)
       foobara
-    foobara-http-api-command (0.0.8)
+    foobara-http-api-command (0.0.9)
       foobara
     foobara-json-schema-generator (0.0.2)
       foobara
@@ -120,7 +120,7 @@ GEM
     foobara-rubocop-rules (0.0.7)
       rubocop
       rubocop-rspec
-    foobara-sh-cli-connector (0.0.10)
+    foobara-sh-cli-connector (0.0.12)
       foobara
     foobara-sh-cli-connector-generator (0.0.3)
       foobara

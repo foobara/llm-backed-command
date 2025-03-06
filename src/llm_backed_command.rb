@@ -58,12 +58,16 @@ module Foobara
     end
 
     def generate_answer
-      self.answer = run_subcommand!(
-        Ai::AnswerBot::Ask,
-        model: llm_model,
+      ask_inputs = {
         instructions: llm_instructions,
         question: input_json
-      )
+      }
+
+      if respond_to?(:llm_model)
+        ask_inputs[:model] = llm_model
+      end
+
+      self.answer = run_subcommand!(Ai::AnswerBot::Ask, ask_inputs)
     end
 
     def llm_instructions
