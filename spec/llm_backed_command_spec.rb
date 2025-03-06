@@ -27,8 +27,6 @@ RSpec.describe Foobara::LlmBackedCommand do
       end
     end
 
-    llm_model
-
     stub_class "SelectUsStateNamesAndCorrectTheirSpelling", Foobara::Command do
       description <<~DESCRIPTION
         Accepts a list of possible US state names and sorts them into verified to be the name of a
@@ -140,7 +138,7 @@ RSpec.describe Foobara::LlmBackedCommand do
     end
 
     context "when the model produces answer that have a <THINK></THINK> section" do
-      let(:llm_model) { "deepseek-r1:32b" }
+      let(:llm_model) { "deepseek-r1:70b" }
 
       let(:inputs) do
         {
@@ -158,6 +156,45 @@ RSpec.describe Foobara::LlmBackedCommand do
         expect(result[:rejected].length).to eq(1)
         expect(result[:rejected][0].name).to eq("Grand Rapids")
       end
+    end
+  end
+
+  context "with a simpler command" do
+    let(:command_class) do
+      mixin = described_class
+
+      stub_module "Math"
+      stub_class "Math::ComputeExponent", Foobara::Command do
+        include mixin
+
+        # description "Accepts a base and exponent and returns the base raised to the exponent."
+
+        inputs do
+          base :integer, :required
+          exponent :integer, :required
+          llm_model Foobara::Ai::AnswerBot::Types.model_enum, default: "deepseek-r1:14b"
+        end
+
+        result :integer
+      end
+    end
+
+    let(:base) { 2 }
+    let(:exponent) { 3 }
+    let(:llm_model) { "deepseek-r1:14b" }
+
+    let(:inputs) do
+      {
+        base:,
+        exponent:,
+        llm_model:
+      }
+    end
+
+    it "is successful", vcr: { record: :none } do
+      expect(outcome).to be_success
+
+      expect(result).to eq(8)
     end
   end
 end

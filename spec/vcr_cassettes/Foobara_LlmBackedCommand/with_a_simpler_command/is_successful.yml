@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:11434/api/chat
+    body:
+      encoding: UTF-8
+      string: '{"messages":[{"role":"system","content":"You are implementing an API
+        for a command named Math::ComputeExponent which has the following description:\n\n  \n\nHere
+        is the inputs JSON schema for the data you will receive:\n\n{\"type\":\"object\",\"required\":[\"base\",\"exponent\"],\"properties\":{\"base\":{\"type\":\"number\"},\"exponent\":{\"type\":\"number\"}}}\n\nHere
+        is the result JSON schema:\n\n{\"type\":\"number\"}\n\nYou will receive 1
+        message containing only JSON data according to the inputs JSON schema above\nand
+        you will generate a JSON response that is a valid response according to the
+        result JSON schema above.\n\nYou will reply with nothing more than the JSON
+        you''ve generated so that the calling code\ncan successfully parse your answer.\n"},{"role":"user","content":"{\"base\":2,\"exponent\":3}"}],"model":"deepseek-r1:14b","stream":false}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 06 Mar 2025 02:58:27 GMT
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"model":"deepseek-r1:14b","created_at":"2025-03-06T02:58:27.196368902Z","message":{"role":"assistant","content":"\u003cthink\u003e\nOkay,
+        I need to figure out how to implement this Math::ComputeExponent API. The
+        input is a JSON object with two required properties: base and exponent, both
+        numbers. The output should be just the result of raising the base to the exponent.\n\nFirst,
+        I''ll think about how exponents work. For example, if the base is 2 and the
+        exponent is 3, the result is 8 because 2^3 equals 8.\n\nI should consider
+        different cases:\n1. Positive numbers: straightforward.\n2. Negative bases:
+        need to ensure correct handling, especially with fractional exponents which
+        might result in complex numbers, but since the output schema expects a number,
+        perhaps we''ll handle only real results.\n3. Zero as base or exponent: zero
+        raised to any positive exponent is 0; any number raised to 0 is 1.\n\nWait,
+        but if the base is zero and exponent is negative, that would be undefined.
+        So maybe the function should handle such cases by returning null or an error?
+        But looking at the result schema, it''s just a number, so perhaps we''ll assume
+        inputs are valid and let calculation proceed as per normal.\n\nNow, thinking
+        about implementation in code. If I were to write this in Python, for example,
+        it would be base ** exponent. That seems simple enough.\n\nBut wait, what
+        if the numbers are very large? For instance, 2^1000 could result in a very
+        big number or an overflow, but since the output is a number, it might handle
+        it as a float or integer depending on the language.\n\nAlso, considering edge
+        cases:\n- base = 0, exponent = 0: mathematically undefined. What should be
+        returned? Maybe zero?\n- base negative and exponent fractional: results in
+        complex numbers, which can''t be represented with a number type. So perhaps
+        we''ll return NaN or some error value.\nBut the result schema expects just
+        a number, so perhaps it''s assumed that such cases won''t be passed, or the
+        function will handle them by returning an appropriate numerical value.\n\nIn
+        any case, for the example given, base is 2 and exponent is 3. So I calculate
+        2^3 = 8.\n\nI think the response should simply return the number 8 as a JSON
+        object.\n\u003c/think\u003e\n\nThe result of raising 2 to the power of 3 is
+        8.\n\n**Step-by-Step Explanation:**\n\n1. **Input Analysis:** The input JSON
+        contains \"base\": 2 and \"exponent\": 3.\n2. **Calculate Exponent:** Compute
+        base^exponent, which is 2^3 = 8.\n3. **Return Result:** Output the result
+        as a number.\n\n**Answer:**\n```json\n8\n```"},"done_reason":"stop","done":true,"total_duration":19797921359,"load_duration":6070309830,"prompt_eval_count":149,"prompt_eval_duration":29000000,"eval_count":563,"eval_duration":13261000000}'
+  recorded_at: Thu, 06 Mar 2025 02:58:27 GMT
+recorded_with: VCR 6.3.1

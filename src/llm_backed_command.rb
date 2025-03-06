@@ -72,9 +72,28 @@ module Foobara
 
     def parse_answer
       stripped_answer = answer.gsub(/<THINK>.*?<\/THINK>/mi, "")
-      stripped_answer = stripped_answer.gsub(/^\s*```\w*\n(.*)```\s*\z/m, "\\1")
+      fencepostless_answer = stripped_answer.gsub(/^\s*```\w*\n(.*)```\s*\z/m, "\\1")
       # TODO: should we verify against json-schema or no?
-      self.parsed_answer = JSON.parse(stripped_answer)
+      self.parsed_answer = begin
+        JSON.parse(fencepostless_answer)
+      rescue => e
+        # see if we can extract the last fence-posts content just in case
+        last_fence_post_regex = /```\w*\s*\n((?:(?!```).)+)\n```(?:(?!```).)*\z/m
+        begin
+          match = last_fence_post_regex.match(stripped_answer)
+          if match
+            JSON.parse(match[1])
+          else
+            # :nocov:
+            raise e
+            # :nocov:
+          end
+        rescue
+          # :nocov:
+          raise e
+          # :nocov:
+        end
+      end
     end
 
     module ClassMethods
