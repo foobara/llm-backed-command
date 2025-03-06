@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    foobara-llm-backed-command (0.0.4)
+    foobara-llm-backed-command (0.0.5)
       foobara-ai
       foobara-json-schema-generator
 
@@ -56,7 +56,7 @@ GEM
       foobara-type-generator
       foobara-typescript-react-command-form-generator
       foobara-typescript-remote-command-generator
-    foobara (0.0.69)
+    foobara (0.0.70)
       bigdecimal
       foobara-lru-cache
       foobara-util

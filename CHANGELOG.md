@@ -1,6 +1,7 @@
-## [0.0.4] - 2025-03-06
+## [0.0.5] - 2025-03-06
 
-- Defer to downstream default model if none specifiedz
+- Defer to downstream default model if none specified
+- Split LlmBackedCommand into a Command and a LlmBackedExecuteMethod mixin
 
 ## [0.0.3] - 2025-03-05
 

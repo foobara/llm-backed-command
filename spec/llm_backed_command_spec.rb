@@ -4,7 +4,7 @@ RSpec.describe Foobara::LlmBackedCommand do
   end
 
   let(:command_class) do
-    mixin = described_class
+    described_class
 
     stub_class "PossibleUsState", Foobara::Model do
       attributes do
@@ -27,7 +27,7 @@ RSpec.describe Foobara::LlmBackedCommand do
       end
     end
 
-    stub_class "SelectUsStateNamesAndCorrectTheirSpelling", Foobara::Command do
+    stub_class "SelectUsStateNamesAndCorrectTheirSpelling", Foobara::LlmBackedCommand do
       description <<~DESCRIPTION
         Accepts a list of possible US state names and sorts them into verified to be the name of a
         US state and rejected to be the name of a non-US state, as well as corrects the spelling of
@@ -48,8 +48,6 @@ RSpec.describe Foobara::LlmBackedCommand do
         result[:rejected].length # => 1
         result[:rejected][0].name # => "Los Angeles"
       DESCRIPTION
-
-      include mixin
 
       inputs do
         list_of_possible_states [PossibleUsState]
@@ -93,7 +91,7 @@ RSpec.describe Foobara::LlmBackedCommand do
       end
     end
 
-    it "is successful", vcr: { record: :none } do
+    it "is successful",  vcr: { record: :none } do
       expect(outcome).to be_success
 
       expect(result[:verified].length).to eq(3)
@@ -161,7 +159,7 @@ RSpec.describe Foobara::LlmBackedCommand do
 
   context "with a simpler command" do
     let(:command_class) do
-      mixin = described_class
+      mixin = Foobara::LlmBackedExecuteMethod
 
       stub_module "Math"
       stub_class "Math::ComputeExponent", Foobara::Command do
