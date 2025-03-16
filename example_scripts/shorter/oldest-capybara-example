@@ -1,12 +1,7 @@
 #!/usr/bin/env ruby
 
 require "foobara/load_dotenv"
-
-Foobara::LoadDotenv.run!(env: "development", dir: __dir__)
-
-require "foobara/anthropic_api"
-require "foobara/open_ai_api"
-require "foobara/ollama_api"
+Foobara::LoadDotenv.run!(dir: __dir__)
 
 require "foobara/llm_backed_command"
 require "foobara/sh_cli_connector"
@@ -15,12 +10,7 @@ require "foobara/local_files_crud_driver"
 Foobara::Persistence.default_crud_driver = Foobara::LocalFilesCrudDriver.new
 
 class Capybara < Foobara::Entity
-  attributes do
-    id :integer
-    name :string, :required
-    age :integer, :required
-  end
-
+  attributes id: :integer, name: :string, age: :integer
   primary_key :id
 end
 
@@ -29,26 +19,12 @@ class CreateCapybara < Foobara::Command
   result Capybara
 
   def execute
-    create_capybara
-
-    capybara
-  end
-
-  attr_accessor :capybara
-
-  def create_capybara
-    self.capybara = Capybara.create(inputs)
+    Capybara.create(inputs)
   end
 end
 
 class SelectOldestCapybara < Foobara::LlmBackedCommand
-  description "Takes a list of Capybara records and returns the Capybara record with the greatest age."
-
-  inputs do
-    capybaras [Capybara], :required, "Capybara records to choose the oldest from"
-    llm_model Foobara::Ai::AnswerBot::Types.model_enum, default: "claude-3-7-sonnet-20250219"
-  end
-
+  inputs capybaras: [Capybara]
   result Capybara
 end
 

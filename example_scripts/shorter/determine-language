@@ -3,30 +3,12 @@
 require "foobara/load_dotenv"
 Foobara::LoadDotenv.run!(dir: __dir__)
 
-require "foobara/anthropic_api"
-require "foobara/open_ai_api"
-require "foobara/ollama_api"
-
 require "foobara/llm_backed_command"
 require "foobara/sh_cli_connector"
 
 class DetermineLanguage < Foobara::LlmBackedCommand
-  description "Accepts a code snippet and returns which language it is most likely to be."
-
-  inputs do
-    code_snippet :string, :required, "The code snippet you'd like to determine the language of"
-    llm_model Foobara::Ai::AnswerBot::Types.model_enum, default: "claude-3-7-sonnet-20250219"
-  end
-
-  result do
-    most_likely :symbol, :required, one_of: %w[ruby c smalltalk java]
-    probabilities description: "Estimated probabilities of each language between 0 and 1" do
-      ruby :float, :required
-      c :float, :required
-      smalltalk :float, :required
-      java :float, :required
-    end
-  end
+  inputs code_snippet: :string
+  result most_likely: :symbol, probabilities: { ruby: :float, c: :float, smalltalk: :float, java: :float }
 end
 
 Foobara::CommandConnectors::ShCliConnector.new(single_command_mode: DetermineLanguage).run(ARGV)
