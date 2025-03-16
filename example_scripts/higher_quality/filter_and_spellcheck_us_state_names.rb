@@ -5,8 +5,9 @@ require "foobara/load_dotenv"
 Foobara::LoadDotenv.run!(env: "development", dir: __dir__)
 
 require "foobara/anthropic_api"
-# require "foobara/open_ai_api"
-# require "foobara/ollama_api"
+require "foobara/open_ai_api"
+require "foobara/ollama_api"
+
 require "foobara/llm_backed_command"
 
 class PossibleUsState < Foobara::Model
@@ -49,8 +50,8 @@ class SelectUsStateNamesAndCorrectTheirSpelling < Foobara::LlmBackedCommand
   DESCRIPTION
 
   inputs do
-    list_of_possible_us_states [PossibleUsState]
-    llm_model :string, default: "claude-3-7-sonnet-20250219"
+    list_of_possible_us_states [PossibleUsState], :required
+    llm_model Foobara::Ai::AnswerBot::Types.model_enum, default: "claude-3-7-sonnet-20250219"
   end
 
   result do

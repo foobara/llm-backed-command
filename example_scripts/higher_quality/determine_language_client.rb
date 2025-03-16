@@ -12,8 +12,9 @@ require "foobara/anthropic_api"
 require "foobara/open_ai_api"
 require "foobara/ollama_api"
 
+code_snippet = "System.out.println"
 llm_model = "claude-3-7-sonnet-20250219"
 # llm_model = "gpt-3.5-turbo"
 # llm_model = "deepseek-r1:32b"
 
-puts DetermineLanguage.run!(llm_model:, code_snippet: "System.out.println")
+puts DetermineLanguage.run!(llm_model:, code_snippet:)

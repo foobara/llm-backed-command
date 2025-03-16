@@ -6,11 +6,19 @@ Foobara::LoadDotenv.run!(env: "development", dir: __dir__)
 require "foobara/anthropic_api"
 require "foobara/open_ai_api"
 require "foobara/ollama_api"
+
 require "foobara/llm_backed_command"
 
 module Math
   class ComputeExponent < Foobara::LlmBackedCommand
-    inputs base: :integer, exponent: :integer, llm_model: Foobara::Ai::AnswerBot::Types.model_enum
+    description "Takes an integer base and exponent and returns the base raised to the exponent"
+
+    inputs do
+      base :integer, :required
+      exponent :integer, :required
+      llm_model Foobara::Ai::AnswerBot::Types.model_enum, default: "claude-3-7-sonnet-20250219"
+    end
+
     result :integer
   end
 end

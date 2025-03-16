@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 # ENV["ANTHROPIC_API_KEY"] = "<your key here>"
+# ENV["OPENAI_API_KEY"] = "<your key here>"
+# ENV["OLLAMA_API_URL"] = "<your url here>"
 
 # if using .env like this instead of setting ENV then run `gem install foobara-dotenv-loader`
 require "foobara/load_dotenv"
@@ -11,10 +13,6 @@ require "foobara/open_ai_api"
 require "foobara/ollama_api"
 
 require "foobara/llm_backed_command"
-
-llm_model = "claude-3-7-sonnet-20250219"
-# llm_model = "gpt-3.5-turbo"
-# llm_model = "deepseek-r1:32b"
 
 class DetermineLanguage < Foobara::LlmBackedCommand
   description "Accepts a code snippet and returns which language it is most likely to be."
@@ -35,4 +33,10 @@ class DetermineLanguage < Foobara::LlmBackedCommand
   end
 end
 
-puts DetermineLanguage.run!(llm_model:, code_snippet: "puts 'Hello, World'")
+llm_model = "claude-3-7-sonnet-20250219"
+# llm_model = "gpt-3.5-turbo"
+# llm_model = "deepseek-r1:32b"
+
+code_snippet = "puts 'Hello, World'"
+
+puts DetermineLanguage.run!(llm_model:, code_snippet:)

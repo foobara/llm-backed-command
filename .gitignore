@@ -14,4 +14,4 @@
 **/.env.*.local
 **/.env.local
 
-/example_scripts/local_data/
+/example_scripts/**/local_data/
