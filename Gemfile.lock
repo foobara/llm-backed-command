@@ -36,9 +36,8 @@ GEM
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
     ffi (1.17.1-x86_64-linux-musl)
-    foob (0.0.11)
+    foob (0.0.12)
       foobara
-      foobara-autocrud-generator
       foobara-command-generator
       foobara-domain-generator
       foobara-domain-mapper-generator
@@ -56,7 +55,7 @@ GEM
       foobara-type-generator
       foobara-typescript-react-command-form-generator
       foobara-typescript-remote-command-generator
-    foobara (0.0.70)
+    foobara (0.0.73)
       bigdecimal
       foobara-lru-cache
       foobara-util
@@ -64,9 +63,6 @@ GEM
     foobara-anthropic-api (0.0.10)
       foobara-cached-command
       foobara-http-api-command
-    foobara-autocrud-generator (0.0.1)
-      foobara
-      foobara-files-generator
     foobara-cached-command (0.0.2)
       foobara
     foobara-command-generator (0.0.3)
@@ -78,7 +74,7 @@ GEM
     foobara-domain-mapper-generator (0.0.4)
       foobara
       foobara-files-generator
-    foobara-dotenv-loader (0.0.2)
+    foobara-dotenv-loader (0.0.3)
       dotenv
     foobara-empty-ruby-project-generator (0.0.14)
       extract-repo
@@ -98,6 +94,9 @@ GEM
       foobara-files-generator
     foobara-lru-cache (0.0.2)
     foobara-ollama-api (0.0.4)
+      foobara-http-api-command
+    foobara-open-ai-api (0.0.12)
+      foobara-cached-command
       foobara-http-api-command
     foobara-organization-generator (0.0.2)
       foobara
@@ -161,7 +160,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    json (2.10.1)
+    json (2.10.2)
     language_server-protocol (3.17.0.4)
     lint_roller (1.1.0)
     listen (3.9.0)
@@ -220,7 +219,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.2)
-    rubocop (1.73.2)
+    rubocop (1.74.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -255,7 +254,7 @@ GEM
     unicode-emoji (4.0.4)
     vcr (6.3.1)
       base64
-    webmock (3.25.0)
+    webmock (3.25.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -279,6 +278,7 @@ DEPENDENCIES
   foobara-dotenv-loader
   foobara-llm-backed-command!
   foobara-ollama-api
+  foobara-open-ai-api
   foobara-rubocop-rules
   foobara-spec-helpers
   guard-rspec

@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+
+require "foobara/load_dotenv"
+
+Foobara::LoadDotenv.run!(env: "development", dir: __dir__)
+
+require "foobara/llm_backed_command"
+require "foobara/sh_cli_connector"
+require "foobara/local_files_crud_driver"
+
+Foobara::Persistence.default_crud_driver = Foobara::LocalFilesCrudDriver.new
+
+class Capybara < Foobara::Entity
+  attributes do
+    id :integer
+    name :string, :required
+    age :integer, :required
+  end
+  primary_key :id
+end
+
+class CreateCapybara < Foobara::Command
+  inputs Capybara.attributes_for_create
+  result Capybara
+
+  def execute
+    create_capybara
+
+    capybara
+  end
+
+  attr_accessor :capybara
+
+  def create_capybara
+    self.capybara = Capybara.create(inputs)
+  end
+end
+
+class SelectOldestCapybara < Foobara::LlmBackedCommand
+  inputs capybaras: [Capybara]
+  result Capybara
+end
+
+connector = Foobara::CommandConnectors::ShCliConnector.new
+
+connector.connect(CreateCapybara)
+connector.connect(SelectOldestCapybara)
+
+connector.run(ARGV)

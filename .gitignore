@@ -1,15 +1,17 @@
-/.bundle/
+**/.bundle/
 /.yardoc
 /_yardoc/
 /coverage/
 /doc/
 /pkg/
 /spec/reports/
-/tmp/
+**/tmp/
 
 /.rspec_status
 /.byebug_history
 
 /.idea/
-/.env.*.local
-/.env.local
+**/.env.*.local
+**/.env.local
+
+/example_scripts/local_data/

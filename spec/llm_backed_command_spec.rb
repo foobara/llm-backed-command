@@ -27,7 +27,7 @@ RSpec.describe Foobara::LlmBackedCommand do
       end
     end
 
-    stub_class "SelectUsStateNamesAndCorrectTheirSpelling", Foobara::LlmBackedCommand do
+    stub_class "SelectUsStateNamesAndCorrectTheirSpelling", described_class do
       description <<~DESCRIPTION
         Accepts a list of possible US state names and sorts them into verified to be the name of a
         US state and rejected to be the name of a non-US state, as well as corrects the spelling of
