@@ -1,0 +1,21 @@
+source "https://rubygems.org"
+
+# plugin 'bundler-graph'
+# gem "foobara", path: "../../foobara"
+
+gem "foobara-anthropic-api"
+gem "foobara-dotenv-loader"
+gem "foobara-llm-backed-command"
+gem "foobara-local-files-crud-driver" # , path: "../../local-files-crud-driver"
+gem "foobara-ollama-api"
+gem "foobara-open-ai-api"
+gem "foobara-rack-connector"
+gem "foobara-remote-imports"
+gem "foobara-sh-cli-connector"
+gem "puma"
+gem "rackup"
+
+gem "pry"
+gem "pry-byebug"
+# Eliminates warning due to above not requiring it
+gem "ostruct"
