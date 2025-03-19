@@ -478,15 +478,18 @@ And our SelectOldestCapybara command is only 4 lines long as a result.
 
 ### Complete scripts to play with
 
-There are various scripts you can play with in [example_scripts](example_scripts) that you can play with.
+There are various scripts in [example_scripts/shorter](example_scripts/shorter)
+and [example_scripts/higher_quality](example_scripts/higher_quality) that you can play with.
 
-That directory also has a Gemfile if helpful for pulling in dependencies
-and you can use `bundle exec` there if needed.
+The difference between the two directories is that `higher_quality/` contains scripts that are more realistic
+with more descriptions and comments and `shorter/` focuses on keeping the scripts short and simple.
+
+Those directories also have a Gemfile each if helpful for pulling in dependencies
+and so that you can use `bundle exec` there if needed.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub
-at https://github.com/foobara/llm-backed-command
+Bug reports and pull requests are welcome on GitHub at https://github.com/foobara/llm-backed-command
 
 ## License
 
