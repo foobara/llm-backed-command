@@ -71,6 +71,7 @@ list_of_possible_us_states = [
   PossibleUsState.new(name: "Los Angeles"),
   PossibleUsState.new(name: "New York")
 ]
+# llm_model = "gpt-3.5-turbo"
 
 puts "Considering:"
 list_of_possible_us_states.each do |possible_us_state|
