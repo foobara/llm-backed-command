@@ -4,6 +4,7 @@ source "https://rubygems.org"
 # gem "foobara", path: "../../../foobara"
 # gem "foobara-http-command-connector", path: "../../../http-command-connector"
 
+gem "foobara", "~> 0.0.92"
 gem "foobara-anthropic-api", "~> 0.0.1"
 gem "foobara-dotenv-loader", "~> 0.0.1"
 gem "foobara-llm-backed-command", path: "../.."
@@ -16,6 +17,7 @@ gem "foobara-sh-cli-connector", "~> 0.0.1"
 gem "puma"
 gem "rackup"
 
+gem "irb"
 gem "pry"
 gem "pry-byebug"
 # Eliminates warning due to above not requiring it

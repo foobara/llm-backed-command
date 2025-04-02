@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+require "foobara/load_dotenv"
+Foobara::LoadDotenv.run!(dir: __dir__)
+
 require "foobara/remote_imports"
 
 Foobara::RemoteImports::ImportCommand.run!(

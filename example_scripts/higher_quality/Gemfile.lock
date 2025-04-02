@@ -2,6 +2,7 @@ PATH
   remote: ../..
   specs:
     foobara-llm-backed-command (0.0.5)
+      foobara (~> 0.0.92)
       foobara-ai (~> 0.0.1)
       foobara-json-schema-generator (~> 0.0.1)
 
@@ -11,8 +12,9 @@ GEM
     bigdecimal (3.1.9)
     byebug (12.0.0)
     coderay (1.1.3)
+    date (3.4.1)
     dotenv (3.1.7)
-    foobara (0.0.88)
+    foobara (0.0.92)
       bigdecimal
       foobara-lru-cache (~> 0.0.2)
       foobara-util (~> 0.0.11)
@@ -26,11 +28,11 @@ GEM
       dotenv
     foobara-http-api-command (0.0.9)
       foobara
-    foobara-http-command-connector (0.0.15)
+    foobara-http-command-connector (0.0.19)
       foobara (~> 0.0.88)
     foobara-json-schema-generator (0.0.2)
       foobara
-    foobara-local-files-crud-driver (0.0.7)
+    foobara-local-files-crud-driver (0.0.8)
       foobara
     foobara-lru-cache (0.0.2)
     foobara-ollama-api (0.0.4)
@@ -38,38 +40,55 @@ GEM
     foobara-open-ai-api (0.0.12)
       foobara-cached-command
       foobara-http-api-command
-    foobara-rack-connector (0.0.4)
-      foobara
-      foobara-http-command-connector
-      foobara-util
+    foobara-rack-connector (0.0.5)
+      foobara (~> 0.0.88)
+      foobara-http-command-connector (~> 0.0.1)
       rack
     foobara-remote-imports (0.0.10)
       foobara (~> 0.0.88)
     foobara-sh-cli-connector (0.0.13)
       foobara (~> 0.0.88)
     foobara-util (0.0.11)
+    io-console (0.8.0)
+    irb (1.15.1)
+      pp (>= 0.6.0)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
     method_source (1.1.0)
     nio4r (2.7.4)
     ostruct (0.6.1)
+    pp (0.6.2)
+      prettyprint
+    prettyprint (0.2.0)
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
     pry-byebug (3.11.0)
       byebug (~> 12.0)
       pry (>= 0.13, < 0.16)
+    psych (5.2.3)
+      date
+      stringio
     puma (6.6.0)
       nio4r (~> 2.0)
     rack (3.1.12)
     rackup (2.2.1)
       rack (>= 3)
+    rdoc (6.13.1)
+      psych (>= 4.0.0)
+    reline (0.6.0)
+      io-console (~> 0.5)
+    stringio (3.1.6)
 
 PLATFORMS
   ruby
   x86_64-linux
 
 DEPENDENCIES
+  foobara (~> 0.0.92)
   foobara-anthropic-api (~> 0.0.1)
   foobara-dotenv-loader (~> 0.0.1)
+  foobara-http-api-command
   foobara-llm-backed-command!
   foobara-local-files-crud-driver (~> 0.0.1)
   foobara-ollama-api (~> 0.0.1)
@@ -77,6 +96,7 @@ DEPENDENCIES
   foobara-rack-connector (~> 0.0.1)
   foobara-remote-imports (~> 0.0.1)
   foobara-sh-cli-connector (~> 0.0.1)
+  irb
   ostruct
   pry
   pry-byebug
