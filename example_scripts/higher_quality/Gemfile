@@ -4,7 +4,7 @@ source "https://rubygems.org"
 # gem "foobara-http-command-connector", path: "../../../http-command-connector"
 gem "foobara-http-api-command" # , path: "../../../http-api-command"
 
-gem "foobara", "~> 0.0.92" # , path: "../../../foobara"
+# gem "foobara", "~> 0.0.92" # , path: "../../../foobara"
 gem "foobara-anthropic-api", "~> 0.0.1"
 gem "foobara-dotenv-loader", "~> 0.0.1"
 gem "foobara-llm-backed-command", path: "../.."

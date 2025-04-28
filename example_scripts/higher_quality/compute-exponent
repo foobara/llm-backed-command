@@ -26,4 +26,4 @@ end
 
 Foobara::CommandConnectors::ShCliConnector.new(
   single_command_mode: Math::ComputeExponent
-).run(ARGV)
+).run
