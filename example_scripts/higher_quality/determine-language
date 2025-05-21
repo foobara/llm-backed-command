@@ -19,7 +19,7 @@ class DetermineLanguage < Foobara::LlmBackedCommand
   end
 
   result do
-    most_likely :symbol, :required, one_of: %w[ruby c smalltalk java]
+    most_likely :symbol, :required, one_of: ["ruby", "c", "smalltalk", "java"]
     probabilities description: "Estimated probabilities of each language between 0 and 1" do
       ruby :float, :required
       c :float, :required
