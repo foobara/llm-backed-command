@@ -1,3 +1,7 @@
+## [0.0.6] - 2025-05-21
+
+- Give an error if no ai api services have been provided
+
 ## [0.0.5] - 2025-03-06
 
 - Defer to downstream default model if none specified
