@@ -1,11 +1,13 @@
 #!/usr/bin/env ruby
 
+require "bundler/setup"
+
 require "foobara/load_dotenv"
 Foobara::LoadDotenv.run!(dir: __dir__)
 
 require "foobara/anthropic_api"
 require "foobara/open_ai_api"
-require "foobara/ollama_api"
+# require "foobara/ollama_api"
 
 require "foobara/llm_backed_command"
 require "foobara/sh_cli_connector"

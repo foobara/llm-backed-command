@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require "bundler/setup"
+
 require "foobara/load_dotenv"
 Foobara::LoadDotenv.run!(env: "development", dir: __dir__)
 

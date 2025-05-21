@@ -1,20 +1,16 @@
 #!/usr/bin/env ruby
+require "bundler/setup"
 
-# ENV["ANTHROPIC_API_KEY"] = "<your key here>"
-# ENV["OPENAI_API_KEY"] = "<your key here>"
-# ENV["OLLAMA_API_URL"] = "<your url here>"
-
-# if using .env like this instead of setting ENV then run `gem install foobara-dotenv-loader`
+# add your keys/urls to .env or set them some other way and delete these two lines
 require "foobara/load_dotenv"
 Foobara::LoadDotenv.run!(dir: __dir__)
-
-require "foobara/anthropic_api"
-require "foobara/open_ai_api"
-require "foobara/ollama_api"
+require "foobara/anthropic_api" if ENV.key?("ANTHROPIC_API_KEY")
+require "foobara/open_ai_api" if ENV.key?("OPENAI_API_KEY")
+require "foobara/ollama_api" if ENV.key?("OLLAMA_API_URL")
 
 require "foobara/llm_backed_command"
 
-Foobara::GlobalDomain.foobara_register_type(:language, :string, one_of: %w[English Spanish])
+Foobara::GlobalDomain.foobara_register_type(:language, :string, one_of: ["English", "Spanish"])
 
 class AnalyzedVerb < Foobara::Model
   attributes do
