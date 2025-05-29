@@ -1,6 +1,6 @@
-# Foobara::LlmBackedCommand/Foobara::LlmBackedExecuteMethod
+# Foobara::LlmBackedCommand
 
-Provides a clean and quick way to implement a Foobara::Command that defers to an LLM for the answer
+Extract knowledge and decisions from LLMs in a programmatically useful way with ease!
 
 <!-- TOC -->
 * [Foobara::LlmBackedCommand/Foobara::LlmBackedExecuteMethod](#foobarallmbackedcommandfoobarallmbackedexecutemethod)
