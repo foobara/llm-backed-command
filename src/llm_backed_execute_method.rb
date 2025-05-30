@@ -11,6 +11,12 @@ module Foobara
 
     on_include do
       depends_on Ai::AnswerBot::Ask
+      possible_error :could_not_parse_result_json,
+                     message: "Could not parse answer",
+                     context: {
+                       raw_answer: :string,
+                       stripped_answer: :string
+                     }
     end
 
     def execute
@@ -77,24 +83,32 @@ module Foobara
     def parse_answer
       stripped_answer = answer.gsub(/<THINK>.*?<\/THINK>/mi, "")
       fencepostless_answer = stripped_answer.gsub(/^\s*```\w*\n(.*)```\s*\z/m, "\\1")
+
       # TODO: should we verify against json-schema or no?
       self.parsed_answer = begin
         JSON.parse(fencepostless_answer)
-      rescue => e
+      rescue JSON::ParserError
         # see if we can extract the last fence-posts content just in case
         last_fence_post_regex = /```\w*\s*\n((?:(?!```).)+)\n```(?:(?!```).)*\z/m
+
         begin
           match = last_fence_post_regex.match(stripped_answer)
+
           if match
-            JSON.parse(match[1])
+            fencepostless_answer = match[1]
+            JSON.parse(fencepostless_answer)
           else
             # :nocov:
-            raise e
+            raise
             # :nocov:
           end
-        rescue
+        rescue JSON::ParserError => e
+          # TODO: figure out how to test this code path
           # :nocov:
-          raise e
+          add_runtime_error :could_not_parse_result_json,
+                            "Could not parse result JSON: #{e.message}",
+                            raw_answer: answer,
+                            stripped_answer: fencepostless_answer
           # :nocov:
         end
       end

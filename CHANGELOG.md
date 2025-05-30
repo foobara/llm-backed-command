@@ -1,3 +1,7 @@
+## [0.0.7] - 2025-05-30
+
+- Add a could-not-parse-json command error instead of raising
+
 ## [0.0.6] - 2025-05-21
 
 - Give an error if no ai api services have been provided
