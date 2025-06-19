@@ -161,7 +161,10 @@ module Foobara
       end
 
       def result_json_schema
-        @result_json_schema ||= JsonSchemaGenerator.to_json_schema(result_type)
+        @result_json_schema ||= JsonSchemaGenerator.to_json_schema(
+          result_type,
+          association_depth: JsonSchemaGenerator::AssociationDepth::PRIMARY_KEY_ONLY
+        )
       end
 
       def llm_instructions

@@ -7,13 +7,14 @@ gemspec
 
 # gem "foobara", path: "../foobara"
 # gem "foobara-ai", path: "../ai"
+
 gem "foobara-dotenv-loader", "~> 0.0.1"
 
 gem "rake"
 
 group :development do
   gem "foob"
-  gem "foobara-rubocop-rules", "~> 0.0.1"
+  gem "foobara-rubocop-rules", ">= 1.0.0"
   gem "guard-rspec"
   gem "rubocop-rake"
   gem "rubocop-rspec"

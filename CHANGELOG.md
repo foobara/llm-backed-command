@@ -1,3 +1,7 @@
+## [0.0.8] - 2025-06-19
+
+- Convert result type entities to their primary key types with a description
+
 ## [0.0.7] - 2025-05-30
 
 - Add a could-not-parse-json command error instead of raising
