@@ -51,39 +51,41 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 05 Mar 2025 00:54:23 GMT
+      - Sat, 28 Jun 2025 00:29:43 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
       - chunked
       Connection:
       - keep-alive
-      Anthropic-Ratelimit-Requests-Limit:
-      - '50'
-      Anthropic-Ratelimit-Requests-Remaining:
-      - '49'
-      Anthropic-Ratelimit-Requests-Reset:
-      - '2025-03-05T00:54:22Z'
       Anthropic-Ratelimit-Input-Tokens-Limit:
-      - '20000'
+      - '40000'
       Anthropic-Ratelimit-Input-Tokens-Remaining:
-      - '20000'
+      - '40000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2025-03-05T00:54:22Z'
+      - '2025-06-28T00:29:42Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
-      - '8000'
+      - '16000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
-      - '8000'
+      - '16000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2025-03-05T00:54:23Z'
+      - '2025-06-28T00:29:43Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '1000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2025-06-28T00:29:41Z'
       Anthropic-Ratelimit-Tokens-Limit:
-      - '28000'
+      - '56000'
       Anthropic-Ratelimit-Tokens-Remaining:
-      - '28000'
+      - '56000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2025-03-05T00:54:22Z'
+      - '2025-06-28T00:29:42Z'
       Request-Id:
-      - req_01B81EJ8iaFEfNbwNpeEmABs
+      - req_011CQZg4FooMaxpGy2mBrTD2
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 7a8e3751-3b70-4f90-a3ce-07f57c9d0bfc
       Via:
@@ -95,10 +97,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 91b5a43c5edf230e-SJC
+      - 9569123f99ad2ef8-LAX
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"msg_01LGwz8yfE8dndrb5wSGaVH3","type":"message","role":"assistant","model":"claude-3-7-sonnet-20250219","content":[{"type":"text","text":"{\"verified\":[{\"possible_us_state\":{\"name\":\"Oregon\"},\"spelling_correction_required\":false,\"corrected_spelling\":null},{\"possible_us_state\":{\"name\":\"Yutah\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Utah\"},{\"possible_us_state\":{\"name\":\"Misisipi\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Mississippi\"}],\"rejected\":[{\"name\":\"Grand
-        Rapids\"}]}"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":669,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":109}}'
-  recorded_at: Wed, 05 Mar 2025 00:54:23 GMT
+      string: '{"id":"msg_01Jf9aAdUHewZYGc5niApsdG","type":"message","role":"assistant","model":"claude-3-7-sonnet-20250219","content":[{"type":"text","text":"{\"verified\":[{\"possible_us_state\":{\"name\":\"Oregon\"},\"spelling_correction_required\":false,\"corrected_spelling\":null},{\"possible_us_state\":{\"name\":\"Yutah\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Utah\"},{\"possible_us_state\":{\"name\":\"Misisipi\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Mississippi\"}],\"rejected\":[{\"name\":\"Grand
+        Rapids\"}]}"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":669,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":109,"service_tier":"standard"}}'
+  recorded_at: Sat, 28 Jun 2025 00:29:43 GMT
 recorded_with: VCR 6.3.1

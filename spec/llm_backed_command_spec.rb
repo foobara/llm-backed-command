@@ -57,6 +57,10 @@ RSpec.describe Foobara::LlmBackedCommand do
         verified [VerifiedUsState]
         rejected [PossibleUsState]
       end
+
+      def temperature
+        0
+      end
     end
   end
 
@@ -91,7 +95,7 @@ RSpec.describe Foobara::LlmBackedCommand do
       end
     end
 
-    it "is successful",  vcr: { record: :none } do
+    it "is successful", vcr: { record: :none } do
       expect(outcome).to be_success
 
       expect(result[:verified].length).to eq(3)
