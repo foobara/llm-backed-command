@@ -10,7 +10,7 @@ module Foobara
     include Concern
 
     on_include do
-      depends_on Ai::AnswerBot::Ask
+      depends_on Ai::AnswerBot::GenerateNextMessage
       possible_error :could_not_parse_result_json,
                      message: "Could not parse answer",
                      context: {
@@ -21,14 +21,14 @@ module Foobara
 
     def execute
       determine_serializer
-      construct_input_json
+      construct_messages
       generate_answer
       parse_answer
 
       parsed_answer
     end
 
-    attr_accessor :serializer, :input_json, :answer, :parsed_answer
+    attr_accessor :serializer, :answer, :parsed_answer, :messages
 
     def determine_serializer
       depth = if respond_to?(:association_depth)
@@ -56,24 +56,48 @@ module Foobara
       self.serializer = serializer.new
     end
 
-    def construct_input_json
-      inputs_without_llm_integration_inputs = inputs.except(:llm_model, :association_depth)
-      input_json = serializer.serialize(inputs_without_llm_integration_inputs)
-
-      self.input_json = JSON.fast_generate(input_json)
-    end
-
     def generate_answer
-      ask_inputs = {
-        instructions: llm_instructions,
-        question: input_json
+      inputs = {
+        chat: Ai::AnswerBot::Types::Chat.new(messages:)
       }
 
+      inputs[:temperature] = if respond_to?(:temperature)
+                               temperature
+                             end || 0
+
       if respond_to?(:llm_model)
-        ask_inputs[:model] = llm_model
+        inputs[:model] = llm_model
       end
 
-      self.answer = run_subcommand!(Ai::AnswerBot::Ask, ask_inputs)
+      message = run_subcommand!(Ai::AnswerBot::GenerateNextMessage, inputs)
+
+      self.answer = message.content
+    end
+
+    def construct_messages
+      self.messages = build_messages.map do |message|
+        content = message[:content]
+
+        if content.is_a?(String)
+          message
+        else
+          content = serializer.serialize(content)
+          message.merge(content: JSON.fast_generate(content))
+        end
+      end
+    end
+
+    def build_messages
+      [
+        {
+          role: :system,
+          content: llm_instructions
+        },
+        {
+          role: :user,
+          content: inputs.except(:llm_model, :association_depth)
+        }
+      ]
     end
 
     def llm_instructions

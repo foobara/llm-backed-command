@@ -1,3 +1,7 @@
+## [0.0.9] - 2025-06-28
+
+- Use temperature and replace Ask with GenerateNextMessage
+
 ## [0.0.8] - 2025-06-19
 
 - Convert result type entities to their primary key types with a description
