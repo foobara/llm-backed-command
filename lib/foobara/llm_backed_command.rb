@@ -13,4 +13,4 @@ end
 
 Foobara::Util.require_directory "#{__dir__}/../../src"
 
-Foobara::Monorepo.project "llm_backed_command", project_path: "#{__dir__}/../../"
+Foobara.project "llm_backed_command", project_path: "#{__dir__}/../../"
