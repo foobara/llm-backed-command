@@ -106,6 +106,9 @@ module Foobara
 
     def parse_answer
       stripped_answer = answer.gsub(/<THINK>.*?<\/THINK>/mi, "")
+      # For some reason sometimes deepseek-r1:32b starts the answer with "\n\n</think>\n\n"
+      # so removing it as a special case
+      stripped_answer = stripped_answer.gsub(/\A\s*<\/think>\s*/mi, "")
       fencepostless_answer = stripped_answer.gsub(/^\s*```\w*\n(.*)```\s*\z/m, "\\1")
 
       # TODO: should we verify against json-schema or no?

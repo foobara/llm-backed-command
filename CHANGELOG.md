@@ -1,3 +1,7 @@
+## [0.0.10] - 2025-07-06
+
+- Handle bizarre deepseek-r1 stranded </think> tag
+
 ## [0.0.9] - 2025-06-28
 
 - Use temperature and replace Ask with GenerateNextMessage
