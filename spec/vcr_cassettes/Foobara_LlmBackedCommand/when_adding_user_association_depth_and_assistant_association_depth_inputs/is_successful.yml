@@ -1,0 +1,106 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-3-7-sonnet-20250219","max_tokens":1024,"messages":[{"role":"user","content":"{\"list_of_possible_states\":[{\"name\":\"Grand
+        Rapids\"},{\"name\":\"Oregon\"},{\"name\":\"Yutah\"},{\"name\":\"Misisipi\"}]}"}],"temperature":0.0,"system":"You
+        are implementing an API for a command named SelectUsStateNamesAndCorrectTheirSpelling
+        which has the following description:\n\nAccepts a list of possible US state
+        names and sorts them into verified to be the name of a\nUS state and rejected
+        to be the name of a non-US state, as well as corrects the spelling of\nthe
+        US state name if it''s not correct.\n\nexample:\n\nIf you pass in [\"Kalifornia\",
+        \"Los Angeles\", \"New York\"] the result will be:\n\nresult[:verified].length
+        # => 2\nresult[:verified][0].possible_us_state.name # => \"Kalifornia\"\nresult[:verified][0].spelling_correction_required
+        # => true \nresult[:verified][0].corrected_spelling # => \"California\"\nresult[:verified][1].possible_us_state.name
+        # => \"New York\"\nresult[:verified][1].spelling_correction_required # =>
+        false\nresult[:verified][1].corrected_spelling # => nil\n\nresult[:rejected].length
+        # => 1\nresult[:rejected][0].name # => \"Los Angeles\"\n\n\nHere is the inputs
+        JSON schema for the data you will receive:\n\n{\"type\":\"object\",\"properties\":{\"list_of_possible_states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
+        name that potentially might be a name of a US state, spelled correctly or
+        incorrectly\"}}}}}}\n\nHere is the result JSON schema:\n\n{\"type\":\"object\",\"properties\":{\"verified\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"possible_us_state\",\"spelling_correction_required\"],\"properties\":{\"possible_us_state\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
+        name that potentially might be a name of a US state, spelled correctly or
+        incorrectly\"}},\"description\":\"The original possible US state that was
+        passed in\"},\"spelling_correction_required\":{\"type\":\"boolean\",\"description\":\"Whether
+        or not the original spelling was correct\"},\"corrected_spelling\":{\"type\":[\"string\",\"null\"],\"description\":\"If
+        the original spelling was incorrect, the corrected spelling will be here\"}}}},\"rejected\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
+        name that potentially might be a name of a US state, spelled correctly or
+        incorrectly\"}}}}}}\n\nYou will receive 1 message containing only JSON data
+        according to the inputs JSON schema above\nand you will generate a JSON response
+        that is a valid response according to the result JSON schema above.\n\nYou
+        will reply with nothing more than the JSON you''ve generated so that the calling
+        code\ncan successfully parse your answer.\n"}'
+    headers:
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<SCRUBBED_ANTHROPIC_API_KEY>"
+      Anthropic-Version:
+      - '2023-06-01'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 07 Jul 2025 23:25:51 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '40000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '40000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2025-07-07T23:25:49Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '16000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '16000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2025-07-07T23:25:51Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '1000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2025-07-07T23:25:48Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '56000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '56000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2025-07-07T23:25:49Z'
+      Request-Id:
+      - req_011CQtXGrn6puS9GQ8WUUJ4R
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 7a8e3751-3b70-4f90-a3ce-07f57c9d0bfc
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 95bb1a6ad830cefe-SJC
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"msg_012YnTpKTMcsZJZeDQ3n1v7T","type":"message","role":"assistant","model":"claude-3-7-sonnet-20250219","content":[{"type":"text","text":"{\"verified\":[{\"possible_us_state\":{\"name\":\"Oregon\"},\"spelling_correction_required\":false,\"corrected_spelling\":null},{\"possible_us_state\":{\"name\":\"Yutah\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Utah\"},{\"possible_us_state\":{\"name\":\"Misisipi\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Mississippi\"}],\"rejected\":[{\"name\":\"Grand
+        Rapids\"}]}"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":667,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":109,"service_tier":"standard"}}'
+  recorded_at: Mon, 07 Jul 2025 23:25:51 GMT
+recorded_with: VCR 6.3.1

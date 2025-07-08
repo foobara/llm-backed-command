@@ -2,12 +2,19 @@
 # on the class.
 #
 # inputs do
-#   association_depth :symbol, one_of: JsonSchemaGenerator::AssociationDepth, default: AssociationDepth::ATOM
+#   association_depth :symbol, one_of: AssociationDepth, default: AssociationDepth::ATOM
 #   llm_model :symbol, one_of: Foobara::Ai::AnswerBot::Types::ModelEnum
 # end
 module Foobara
   module LlmBackedExecuteMethod
     include Concern
+
+    LLM_INTEGRATION_KEYS = [
+      :llm_model,
+      :association_depth,
+      :user_association_depth,
+      :assistant_association_depth
+    ].freeze
 
     on_include do
       depends_on Ai::AnswerBot::GenerateNextMessage
@@ -20,7 +27,11 @@ module Foobara
     end
 
     def execute
-      determine_serializer
+      determine_user_association_depth
+      determine_assistant_association_depth
+      determine_user_serializer
+      determine_assistant_serializer
+      determine_llm_instructions
       construct_messages
       generate_answer
       parse_answer
@@ -28,32 +39,51 @@ module Foobara
       parsed_answer
     end
 
-    attr_accessor :serializer, :answer, :parsed_answer, :messages
+    attr_accessor :answer, :parsed_answer, :messages, :assistant_serializer, :user_serializer,
+                  :computed_assistant_association_depth, :computed_user_association_depth,
+                  :llm_instructions
 
-    def determine_serializer
-      depth = if respond_to?(:association_depth)
-                association_depth
-              else
-                Foobara::JsonSchemaGenerator::AssociationDepth::AGGREGATE
-              end
+    def determine_assistant_association_depth
+      self.computed_assistant_association_depth = if respond_to?(:assistant_association_depth)
+                                                    assistant_association_depth
+                                                  elsif respond_to?(:association_depth)
+                                                    association_depth
+                                                  else
+                                                    Foobara::AssociationDepth::PRIMARY_KEY_ONLY
+                                                  end
+    end
 
-      serializer = case depth
-                   when Foobara::JsonSchemaGenerator::AssociationDepth::ATOM
-                     Foobara::CommandConnectors::Serializers::AtomicSerializer
-                   when Foobara::JsonSchemaGenerator::AssociationDepth::AGGREGATE
-                     Foobara::CommandConnectors::Serializers::AggregateSerializer
-                   when Foobara::JsonSchemaGenerator::AssociationDepth::PRIMARY_KEY_ONLY
-                     # :nocov:
-                     raise "PRIMARY_KEY_ONLY depth not yet implemented"
-                   # :nocov:
-                   else
-                     # :nocov:
-                     raise "Unknown depth: #{depth}"
-                     # :nocov:
-                   end
+    def determine_assistant_serializer
+      self.assistant_serializer = depth_to_serializer(computed_assistant_association_depth)
+    end
 
-      # cache this?
-      self.serializer = serializer.new
+    def determine_user_association_depth
+      self.computed_user_association_depth = if respond_to?(:user_association_depth)
+                                               user_association_depth
+                                             elsif respond_to?(:association_depth)
+                                               association_depth
+                                             else
+                                               Foobara::AssociationDepth::ATOM
+                                             end
+    end
+
+    def determine_user_serializer
+      self.user_serializer = depth_to_serializer(computed_user_association_depth)
+    end
+
+    def depth_to_serializer(depth)
+      case depth
+      when Foobara::AssociationDepth::ATOM
+        Foobara::CommandConnectors::Serializers::AtomicSerializer
+      when Foobara::AssociationDepth::AGGREGATE
+        Foobara::CommandConnectors::Serializers::AggregateSerializer
+      when Foobara::AssociationDepth::PRIMARY_KEY_ONLY
+        Foobara::CommandConnectors::Serializers::EntitiesToPrimaryKeysSerializer
+      else
+        # :nocov:
+        raise "Unknown depth: #{depth}"
+        # :nocov:
+      end.instance
     end
 
     def generate_answer
@@ -61,6 +91,7 @@ module Foobara
         chat: Ai::AnswerBot::Types::Chat.new(messages:)
       }
 
+      # NOTE: some models don't allow 0 such as o1.  Manually set to 1 in calling code for such models for now.
       inputs[:temperature] = if respond_to?(:temperature)
                                temperature
                              end || 0
@@ -81,10 +112,23 @@ module Foobara
         if content.is_a?(String)
           message
         else
+          serializer = if message[:role] == :user
+                         user_serializer
+                       else
+                         assistant_serializer
+                       end
+
           content = serializer.serialize(content)
           message.merge(content: JSON.fast_generate(content))
         end
       end
+    end
+
+    def determine_llm_instructions
+      self.llm_instructions = self.class.llm_instructions(
+        computed_user_association_depth,
+        computed_assistant_association_depth
+      )
     end
 
     def build_messages
@@ -95,20 +139,16 @@ module Foobara
         },
         {
           role: :user,
-          content: inputs.except(:llm_model, :association_depth)
+          content: inputs.except(*LLM_INTEGRATION_KEYS)
         }
       ]
-    end
-
-    def llm_instructions
-      self.class.llm_instructions
     end
 
     def parse_answer
       stripped_answer = answer.gsub(/<THINK>.*?<\/THINK>/mi, "")
       # For some reason sometimes deepseek-r1:32b starts the answer with "\n\n</think>\n\n"
       # so removing it as a special case
-      stripped_answer = stripped_answer.gsub(/\A\s*<\/think>\s*/mi, "")
+      stripped_answer = stripped_answer.gsub(/\A\s*<\/?think>\s*/mi, "")
       fencepostless_answer = stripped_answer.gsub(/^\s*```\w*\n(.*)```\s*\z/m, "\\1")
 
       # TODO: should we verify against json-schema or no?
@@ -142,71 +182,81 @@ module Foobara
     end
 
     module ClassMethods
-      def inputs_json_schema
-        @inputs_json_schema ||= JsonSchemaGenerator.to_json_schema(inputs_type_without_llm_integration_inputs)
+      def inputs_json_schema(association_depth)
+        JsonSchemaGenerator.to_json_schema(
+          inputs_type_without_llm_integration_inputs,
+          association_depth:
+        )
       end
 
       def inputs_type_without_llm_integration_inputs
-        return @inputs_type_without_llm_integration_inputs if @inputs_type_without_llm_integration_inputs
-
         type_declaration = Util.deep_dup(inputs_type.declaration_data)
 
         element_type_declarations = type_declaration[:element_type_declarations]
 
         changed = false
 
-        if element_type_declarations.key?(:llm_model)
-          changed = true
-          element_type_declarations.delete(:llm_model)
-        end
-
-        if element_type_declarations.key?(:association_depth)
-          changed = true
-          element_type_declarations.delete(:association_depth)
+        LLM_INTEGRATION_KEYS.each do |key|
+          if element_type_declarations.key?(key)
+            changed = true
+            element_type_declarations.delete(key)
+          end
         end
 
         if type_declaration.key?(:defaults)
-          if type_declaration[:defaults].key?(:llm_model)
-            changed = true
-            type_declaration[:defaults].delete(:llm_model)
+          LLM_INTEGRATION_KEYS.each do |key|
+            if type_declaration[:defaults].key?(key)
+              changed = true
+              type_declaration[:defaults].delete(key)
+            end
           end
 
-          if type_declaration[:defaults].key?(:association_depth)
-            changed = true
-            type_declaration[:defaults].delete(:association_depth)
-          end
           if type_declaration[:defaults].empty?
             type_declaration.delete(:defaults)
           end
         end
 
-        @inputs_type_without_llm_integration_inputs = if changed
-                                                        domain.foobara_type_from_declaration(type_declaration)
-                                                      else
-                                                        inputs_type
-                                                      end
+        if changed
+          domain.foobara_type_from_declaration(type_declaration)
+        else
+          inputs_type
+        end
       end
 
-      def result_json_schema
-        @result_json_schema ||= JsonSchemaGenerator.to_json_schema(
+      def result_json_schema(association_depth)
+        JsonSchemaGenerator.to_json_schema(
           result_type,
-          association_depth: JsonSchemaGenerator::AssociationDepth::PRIMARY_KEY_ONLY
+          association_depth:
         )
       end
 
-      def llm_instructions
-        @llm_instructions ||= <<~INSTRUCTIONS
+      def llm_instructions(user_association_depth, assistant_association_depth)
+        key = [user_association_depth, assistant_association_depth]
+
+        @llm_instructions_cache ||= {}
+
+        if @llm_instructions_cache.key?(key)
+          # :nocov:
+          @llm_instructions_cache[key]
+          # :nocov:
+        else
+          @llm_instructions_cache[key] = build_llm_instructions(user_association_depth, assistant_association_depth)
+        end
+      end
+
+      def build_llm_instructions(user_association_depth, assistant_association_depth)
+        <<~INSTRUCTIONS
           You are implementing an API for a command named #{scoped_full_name} which has the following description:
 
-          #{description}#{"  "}
+          #{description}
 
           Here is the inputs JSON schema for the data you will receive:
 
-          #{inputs_json_schema}
+          #{inputs_json_schema(user_association_depth)}
 
           Here is the result JSON schema:
 
-          #{result_json_schema}
+          #{result_json_schema(assistant_association_depth)}
 
           You will receive 1 message containing only JSON data according to the inputs JSON schema above
           and you will generate a JSON response that is a valid response according to the result JSON schema above.

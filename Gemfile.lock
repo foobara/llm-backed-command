@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    foobara-llm-backed-command (0.0.10)
+    foobara-llm-backed-command (1.0.0)
       foobara (~> 0.0.132)
       foobara-ai (~> 0.0.1)
-      foobara-json-schema-generator (~> 0.0.6)
+      foobara-json-schema-generator (~> 1.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -58,7 +58,7 @@ GEM
       foobara-type-generator (~> 0.0.1)
       foobara-typescript-react-command-form-generator (~> 0.0.1)
       foobara-typescript-remote-command-generator (~> 0.0.1)
-    foobara (0.0.135)
+    foobara (0.0.136)
       bigdecimal
       foobara-lru-cache (~> 0.0.2)
       foobara-util (>= 1.0.0)
@@ -91,7 +91,7 @@ GEM
       foobara (~> 0.0.116)
     foobara-http-api-command (0.0.9)
       foobara
-    foobara-json-schema-generator (0.0.6)
+    foobara-json-schema-generator (1.0.0)
       foobara (~> 0.0.92)
     foobara-local-files-crud-driver-generator (0.0.3)
       foobara
@@ -137,7 +137,7 @@ GEM
       foobara-typescript-remote-command-generator (~> 0.0.1)
     foobara-typescript-remote-command-generator (0.0.24)
       foobara-files-generator (~> 0.0.1)
-    foobara-util (1.0.0)
+    foobara-util (1.0.1)
     formatador (1.1.0)
     guard (2.19.1)
       formatador (>= 0.2.4)
@@ -223,7 +223,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.4)
-    rubocop (1.77.0)
+    rubocop (1.78.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)

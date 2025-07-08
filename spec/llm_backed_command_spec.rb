@@ -124,8 +124,8 @@ RSpec.describe Foobara::LlmBackedCommand do
       command_class.add_inputs do
         llm_model :symbol, one_of: Foobara::Ai::AnswerBot::Types::ModelEnum, default: "claude-3-7-sonnet-20250219"
         association_depth :symbol,
-                          one_of: Foobara::JsonSchemaGenerator::AssociationDepth,
-                          default: Foobara::JsonSchemaGenerator::AssociationDepth::ATOM
+                          one_of: Foobara::AssociationDepth,
+                          default: Foobara::AssociationDepth::ATOM
       end
     end
 
@@ -158,6 +158,30 @@ RSpec.describe Foobara::LlmBackedCommand do
         expect(result[:rejected].length).to eq(1)
         expect(result[:rejected][0].name).to eq("Grand Rapids")
       end
+    end
+  end
+
+  context "when adding user_association_depth and assistant_association_depth inputs" do
+    before do
+      command_class.add_inputs do
+        llm_model :symbol, one_of: Foobara::Ai::AnswerBot::Types::ModelEnum, default: "claude-3-7-sonnet-20250219"
+        user_association_depth :symbol,
+                               one_of: Foobara::AssociationDepth,
+                               default: Foobara::AssociationDepth::ATOM
+        assistant_association_depth :symbol,
+                                    one_of: Foobara::AssociationDepth,
+                                    default: Foobara::AssociationDepth::ATOM
+      end
+    end
+
+    it "is successful", vcr: { record: :none } do
+      expect(outcome).to be_success
+
+      expect(result[:verified].length).to eq(3)
+      expect(result[:verified][2].corrected_spelling).to eq("Mississippi")
+
+      expect(result[:rejected].length).to eq(1)
+      expect(result[:rejected][0].name).to eq("Grand Rapids")
     end
   end
 
@@ -197,6 +221,66 @@ RSpec.describe Foobara::LlmBackedCommand do
       expect(outcome).to be_success
 
       expect(result).to eq(8)
+    end
+  end
+
+  context "with custom-built message history for the LLM" do
+    let(:command_class) do
+      stub_class "DetermineMax", described_class do
+        description "Every time it receives a list of numbers, it returns the max of the list"
+
+        result do
+          max :integer, :required
+        end
+
+        def user_association_depth
+          Foobara::AssociationDepth::AGGREGATE
+        end
+
+        def assistant_association_depth
+          Foobara::AssociationDepth::AGGREGATE
+        end
+
+        def build_messages
+          [
+            {
+              content: llm_instructions,
+              role: :system
+            },
+            {
+              content: { numbers: [1, 2, 3] },
+              role: :user
+            },
+            {
+              content: { max: 3 },
+              role: :assistant
+            },
+            {
+              content: { numbers: [5, 14, 5, 6] },
+              role: :user
+            }
+          ]
+        end
+
+        def determine_llm_instructions
+          self.llm_instructions = <<~INSTRUCTIONS
+            You are implementing a command called DetermineMax.  You will receive a list of numbers and you
+            will return the max of the list using the following JSON schema:
+
+            #{self.class.result_json_schema(Foobara::AssociationDepth::ATOM)}
+
+            You will only respond with this JSON so that the calling code can parse it and use it programmatically.
+          INSTRUCTIONS
+        end
+      end
+    end
+
+    let(:inputs) { nil }
+
+    it "is successful", vcr: { record: :none } do
+      expect(outcome).to be_success
+
+      expect(result).to eq(max: 14)
     end
   end
 end

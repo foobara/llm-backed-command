@@ -1,3 +1,7 @@
+## [1.0.0] - 2025-07-08
+
+- Add support for separate serializers for user and assistant messages
+
 ## [0.0.10] - 2025-07-06
 
 - Handle bizarre deepseek-r1 stranded </think> tag
