@@ -1,3 +1,7 @@
+## [1.0.1] - 2025-07-09
+
+- Use foobara-ai version 1.0.0
+
 ## [1.0.0] - 2025-07-08
 
 - Add support for separate serializers for user and assistant messages

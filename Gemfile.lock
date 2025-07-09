@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    foobara-llm-backed-command (1.0.0)
-      foobara (~> 0.0.132)
-      foobara-ai (~> 0.0.1)
-      foobara-json-schema-generator (~> 1.0.0)
+    foobara-llm-backed-command (1.0.1)
+      foobara (>= 0.0.136, < 2.0.0)
+      foobara-ai (>= 1.0.0, < 2.0.0)
+      foobara-json-schema-generator (>= 1.0.0, < 2.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -63,7 +63,7 @@ GEM
       foobara-lru-cache (~> 0.0.2)
       foobara-util (>= 1.0.0)
       inheritable-thread-vars (~> 0.0.1)
-    foobara-ai (0.0.14)
+    foobara-ai (1.0.0)
     foobara-anthropic-api (0.0.11)
       foobara-cached-command
       foobara-http-api-command
