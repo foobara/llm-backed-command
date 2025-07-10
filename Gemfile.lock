@@ -64,7 +64,7 @@ GEM
       foobara-util (>= 1.0.0)
       inheritable-thread-vars (~> 0.0.1)
     foobara-ai (1.0.0)
-    foobara-anthropic-api (0.0.11)
+    foobara-anthropic-api (1.0.1)
       foobara-cached-command
       foobara-http-api-command
     foobara-cached-command (0.0.2)
@@ -99,9 +99,9 @@ GEM
     foobara-lru-cache (0.0.2)
     foobara-mcp-connector-generator (0.0.6)
       foobara (~> 0.0.99)
-    foobara-ollama-api (0.0.5)
+    foobara-ollama-api (1.0.0)
       foobara-http-api-command
-    foobara-open-ai-api (0.0.13)
+    foobara-open-ai-api (1.0.1)
       foobara-cached-command
       foobara-http-api-command
     foobara-organization-generator (0.0.2)
@@ -280,11 +280,11 @@ PLATFORMS
 
 DEPENDENCIES
   foob
-  foobara-anthropic-api (~> 0.0.1)
+  foobara-anthropic-api (< 2.0.0)
   foobara-dotenv-loader (~> 0.0.1)
   foobara-llm-backed-command!
-  foobara-ollama-api (~> 0.0.1)
-  foobara-open-ai-api (~> 0.0.1)
+  foobara-ollama-api (< 2.0.0)
+  foobara-open-ai-api (< 2.0.0)
   foobara-rubocop-rules (>= 1.0.0)
   foobara-spec-helpers (~> 0.0.1)
   guard-rspec
