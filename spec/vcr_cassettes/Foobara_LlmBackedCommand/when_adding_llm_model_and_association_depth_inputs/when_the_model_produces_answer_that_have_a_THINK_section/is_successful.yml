@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: "<SCRUBBED_OLLAMA_API_URL>/api/chat"
+    body:
+      encoding: UTF-8
+      string: '{"model":"qwen3:32b","messages":[{"role":"system","content":"You are
+        implementing an API for a command named SelectUsStateNamesAndCorrectTheirSpelling
+        which has the following description:\n\nAccepts a list of possible US state
+        names and sorts them into verified to be the name of a\nUS state and rejected
+        to be the name of a non-US state, as well as corrects the spelling of\nthe
+        US state name if it''s not correct.\n\nexample:\n\nIf you pass in [\"Kalifornia\",
+        \"Los Angeles\", \"New York\"] the result will be:\n\nresult[:verified].length
+        # => 2\nresult[:verified][0].possible_us_state.name # => \"Kalifornia\"\nresult[:verified][0].spelling_correction_required
+        # => true \nresult[:verified][0].corrected_spelling # => \"California\"\nresult[:verified][1].possible_us_state.name
+        # => \"New York\"\nresult[:verified][1].spelling_correction_required # =>
+        false\nresult[:verified][1].corrected_spelling # => nil\n\nresult[:rejected].length
+        # => 1\nresult[:rejected][0].name # => \"Los Angeles\"\n\n\nHere is the inputs
+        JSON schema for the data you will receive:\n\n{\"type\":\"object\",\"properties\":{\"list_of_possible_states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
+        name that potentially might be a name of a US state, spelled correctly or
+        incorrectly\"}}}}}}\n\nHere is the result JSON schema:\n\n{\"type\":\"object\",\"properties\":{\"verified\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"possible_us_state\",\"spelling_correction_required\"],\"properties\":{\"possible_us_state\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
+        name that potentially might be a name of a US state, spelled correctly or
+        incorrectly\"}},\"description\":\"The original possible US state that was
+        passed in\"},\"spelling_correction_required\":{\"type\":\"boolean\",\"description\":\"Whether
+        or not the original spelling was correct\"},\"corrected_spelling\":{\"type\":[\"string\",\"null\"],\"description\":\"If
+        the original spelling was incorrect, the corrected spelling will be here\"}}}},\"rejected\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
+        name that potentially might be a name of a US state, spelled correctly or
+        incorrectly\"}}}}}}\n\nYou will receive 1 message containing only JSON data
+        according to the inputs JSON schema above\nand you will generate a JSON response
+        that is a valid response according to the result JSON schema above.\n\nYou
+        will reply with nothing more than the JSON you''ve generated so that the calling
+        code\ncan successfully parse your answer.\n"},{"role":"user","content":"{\"list_of_possible_states\":[{\"name\":\"Grand
+        Rapids\"},{\"name\":\"Oregon\"},{\"name\":\"Yutah\"},{\"name\":\"Misisipi\"}]}"}],"stream":false,"options":{"temperature":0.0}}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 11 Aug 2025 22:23:46 GMT
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJtb2RlbCI6InF3ZW4zOjMyYiIsImNyZWF0ZWRfYXQiOiIyMDI1LTA4LTExVDIyOjIzOjQ2LjE3MTg3OTE0WiIsIm1lc3NhZ2UiOnsicm9sZSI6ImFzc2lzdGFudCIsImNvbnRlbnQiOiJcdTAwM2N0aGlua1x1MDAzZVxuT2theSwgbGV0J3MgdGFja2xlIHRoaXMgcHJvYmxlbS4gVGhlIHVzZXIgd2FudHMgdG8gcHJvY2VzcyBhIGxpc3Qgb2YgcG9zc2libGUgVVMgc3RhdGUgbmFtZXMsIHZlcmlmeSB3aGljaCBvbmVzIGFyZSBhY3R1YWwgc3RhdGVzLCBjb3JyZWN0IHRoZWlyIHNwZWxsaW5nIGlmIG5lZWRlZCwgYW5kIHJlamVjdCB0aGUgcmVzdC4gXG5cbkZpcnN0LCBJIG5lZWQgdG8ga25vdyB0aGUgbGlzdCBvZiBhbGwgVVMgc3RhdGVzLiBMZXQgbWUgcmVjYWxsIHRoZW0uIFRoZSA1MCBzdGF0ZXMgYXJlOiBBbGFiYW1hLCBBbGFza2EsIEFyaXpvbmEsIEFya2Fuc2FzLCBDYWxpZm9ybmlhLCBDb2xvcmFkbywgQ29ubmVjdGljdXQsIERlbGF3YXJlLCBGbG9yaWRhLCBHZW9yZ2lhLCBIYXdhaWksIElkYWhvLCBJbGxpbm9pcywgSW5kaWFuYSwgSW93YSwgS2Fuc2FzLCBLZW50dWNreSwgTG91aXNpYW5hLCBNYWluZSwgTWFyeWxhbmQsIE1hc3NhY2h1c2V0dHMsIE1pY2hpZ2FuLCBNaW5uZXNvdGEsIE1pc3Npc3NpcHBpLCBNaXNzb3VyaSwgTW9udGFuYSwgTmVicmFza2EsIE5ldmFkYSwgTmV3IEhhbXBzaGlyZSwgTmV3IEplcnNleSwgTmV3IE1leGljbywgTmV3IFlvcmssIE5vcnRoIENhcm9saW5hLCBOb3J0aCBEYWtvdGEsIE9oaW8sIE9rbGFob21hLCBPcmVnb24sIFBlbm5zeWx2YW5pYSwgUmhvZGUgSXNsYW5kLCBTb3V0aCBDYXJvbGluYSwgU291dGggRGFrb3RhLCBUZW5uZXNzZWUsIFRleGFzLCBVdGFoLCBWZXJtb250LCBWaXJnaW5pYSwgV2FzaGluZ3RvbiwgV2VzdCBWaXJnaW5pYSwgV2lzY29uc2luLCBXeW9taW5nLiBPaCwgYW5kIGRvbid0IGZvcmdldCB0aGUgRGlzdHJpY3Qgb2YgQ29sdW1iaWEsIGJ1dCBtYXliZSB0aGUgcHJvYmxlbSBkb2Vzbid0IGluY2x1ZGUgaXQuIFRoZSBleGFtcGxlIGdpdmVuIGRpZG4ndCBoYXZlIERDLCBzbyBJJ2xsIHN0aWNrIHdpdGggdGhlIDUwIHN0YXRlcy5cblxuTm93LCBsb29raW5nIGF0IHRoZSBpbnB1dCBsaXN0OiBbXCJHcmFuZCBSYXBpZHNcIiwgXCJPcmVnb25cIiwgXCJZdXRhaFwiLCBcIk1pc2lzaXBpXCJdLiBcblxuRmlyc3QsIFwiR3JhbmQgUmFwaWRzXCIg4oCTIHdhaXQsIHRoYXQncyBhIGNpdHkgaW4gTWljaGlnYW4uIFNvIGl0J3Mgbm90IGEgc3RhdGUuIFNvIGl0IHNob3VsZCBiZSByZWplY3RlZC4gXG5cblwiT3JlZ29uXCIgaXMgYSBjb3JyZWN0IHN0YXRlIG5hbWUuIFNvIGl0J3MgdmVyaWZpZWQsIG5vIGNvcnJlY3Rpb24gbmVlZGVkLiBcblxuXCJZdXRhaFwiIOKAkyB0aGUgY29ycmVjdCBzcGVsbGluZyBpcyBVdGFoLiBTbyB0aGlzIG5lZWRzIGNvcnJlY3Rpb24uIFxuXG5cIk1pc2lzaXBpXCIg4oCTIHRoZSBjb3JyZWN0IGlzIE1pc3Npc3NpcHBpLiBTbyBjb3JyZWN0aW9uIHJlcXVpcmVkIGhlcmUuXG5cblNvIHRoZSB2ZXJpZmllZCBsaXN0IHNob3VsZCBpbmNsdWRlIE9yZWdvbiAobm8gY29ycmVjdGlvbiksIFl1dGFoIChjb3JyZWN0ZWQgdG8gVXRhaCksIGFuZCBNaXNpc2lwaSAoY29ycmVjdGVkIHRvIE1pc3Npc3NpcHBpKS4gV2FpdCwgYnV0IHdhaXQuIFdhaXQsIHRoZSBleGFtcGxlIGluIHRoZSBwcm9ibGVtIHNob3dzIHRoYXQgXCJMb3MgQW5nZWxlc1wiIHdhcyByZWplY3RlZCBiZWNhdXNlIGl0J3MgYSBjaXR5LiBTbyBcIkdyYW5kIFJhcGlkc1wiIGlzIHNpbWlsYXIsIHNvIGl0J3MgcmVqZWN0ZWQuIFxuXG5XYWl0LCB0aGUgaW5wdXQgbGlzdCBpcyBbXCJHcmFuZCBSYXBpZHNcIiwgXCJPcmVnb25cIiwgXCJZdXRhaFwiLCBcIk1pc2lzaXBpXCJdLiBcblxuU28gZm9yIGVhY2ggaXRlbTpcblxuLSBHcmFuZCBSYXBpZHM6IE5vdCBhIHN0YXRlLiBSZWplY3RlZC5cbi0gT3JlZ29uOiBWYWxpZCBzdGF0ZS4gVmVyaWZpZWQsIG5vIGNvcnJlY3Rpb24uXG4tIFl1dGFoOiBJbmNvcnJlY3Qgc3BlbGxpbmcgb2YgVXRhaC4gVmVyaWZpZWQsIGNvcnJlY3Rpb24gcmVxdWlyZWQuXG4tIE1pc2lzaXBpOiBJbmNvcnJlY3Qgc3BlbGxpbmcgb2YgTWlzc2lzc2lwcGkuIFZlcmlmaWVkLCBjb3JyZWN0aW9uIHJlcXVpcmVkLlxuXG5TbyB0aGUgdmVyaWZpZWQgYXJyYXkgc2hvdWxkIGhhdmUgdGhyZWUgZW50cmllczogT3JlZ29uLCBZdXRhaCwgTWlzaXNpcGkuIFRoZSByZWplY3RlZCBhcnJheSBoYXMgR3JhbmQgUmFwaWRzLlxuXG5Ob3csIGZvciBlYWNoIHZlcmlmaWVkIGVudHJ5OlxuXG5PcmVnb246IHNwZWxsaW5nX2NvcnJlY3Rpb25fcmVxdWlyZWQgaXMgZmFsc2UsIGNvcnJlY3RlZF9zcGVsbGluZyBpcyBudWxsLlxuXG5ZdXRhaDogc3BlbGxpbmdfY29ycmVjdGlvbl9yZXF1aXJlZCBpcyB0cnVlLCBjb3JyZWN0ZWRfc3BlbGxpbmcgaXMgXCJVdGFoXCIuXG5cbk1pc2lzaXBpOiBzcGVsbGluZ19jb3JyZWN0aW9uX3JlcXVpcmVkIGlzIHRydWUsIGNvcnJlY3RlZF9zcGVsbGluZyBpcyBcIk1pc3Npc3NpcHBpXCIuXG5cblNvIHRoZSBKU09OIHN0cnVjdHVyZSBzaG91bGQgcmVmbGVjdCB0aGF0LlxuXG5Ob3csIGNvbnN0cnVjdGluZyB0aGUgSlNPTiByZXNwb25zZSBhY2NvcmRpbmcgdG8gdGhlIHNjaGVtYS5cblxuVGhlIHJlc3VsdCBzaG91bGQgaGF2ZSBcInZlcmlmaWVkXCIgYW5kIFwicmVqZWN0ZWRcIiBhcnJheXMuXG5cbkZvciB0aGUgdmVyaWZpZWQgYXJyYXksIGVhY2ggZW50cnkgaGFzIHBvc3NpYmxlX3VzX3N0YXRlICh0aGUgb3JpZ2luYWwgbmFtZSksIHNwZWxsaW5nX2NvcnJlY3Rpb25fcmVxdWlyZWQsIGFuZCBjb3JyZWN0ZWRfc3BlbGxpbmcgaWYgbmVlZGVkLlxuXG5TbyBmb3IgT3JlZ29uOlxuXG57XG4gIFwicG9zc2libGVfdXNfc3RhdGVcIjoge1wibmFtZVwiOiBcIk9yZWdvblwifSxcbiAgXCJzcGVsbGluZ19jb3JyZWN0aW9uX3JlcXVpcmVkXCI6IGZhbHNlLFxuICBcImNvcnJlY3RlZF9zcGVsbGluZ1wiOiBudWxsXG59XG5cbkZvciBZdXRhaDpcblxue1xuICBcInBvc3NpYmxlX3VzX3N0YXRlXCI6IHtcIm5hbWVcIjogXCJZdXRhaFwifSxcbiAgXCJzcGVsbGluZ19jb3JyZWN0aW9uX3JlcXVpcmVkXCI6IHRydWUsXG4gIFwiY29ycmVjdGVkX3NwZWxsaW5nXCI6IFwiVXRhaFwiXG59XG5cbkZvciBNaXNpc2lwaTpcblxue1xuICBcInBvc3NpYmxlX3VzX3N0YXRlXCI6IHtcIm5hbWVcIjogXCJNaXNpc2lwaVwifSxcbiAgXCJzcGVsbGluZ19jb3JyZWN0aW9uX3JlcXVpcmVkXCI6IHRydWUsXG4gIFwiY29ycmVjdGVkX3NwZWxsaW5nXCI6IFwiTWlzc2lzc2lwcGlcIlxufVxuXG5UaGUgcmVqZWN0ZWQgYXJyYXkgaGFzOlxuXG57XG4gIFwibmFtZVwiOiBcIkdyYW5kIFJhcGlkc1wiXG59XG5cblB1dHRpbmcgaXQgYWxsIHRvZ2V0aGVyLCB0aGUgSlNPTiBzaG91bGQgbG9vayBsaWtlOlxuXG57XG4gIFwidmVyaWZpZWRcIjogW1xuICAgIHtcbiAgICAgIFwicG9zc2libGVfdXNfc3RhdGVcIjoge1wibmFtZVwiOiBcIk9yZWdvblwifSxcbiAgICAgIFwic3BlbGxpbmdfY29ycmVjdGlvbl9yZXF1aXJlZFwiOiBmYWxzZSxcbiAgICAgIFwiY29ycmVjdGVkX3NwZWxsaW5nXCI6IG51bGxcbiAgICB9LFxuICAgIHtcbiAgICAgIFwicG9zc2libGVfdXNfc3RhdGVcIjoge1wibmFtZVwiOiBcIll1dGFoXCJ9LFxuICAgICAgXCJzcGVsbGluZ19jb3JyZWN0aW9uX3JlcXVpcmVkXCI6IHRydWUsXG4gICAgICBcImNvcnJlY3RlZF9zcGVsbGluZ1wiOiBcIlV0YWhcIlxuICAgIH0sXG4gICAge1xuICAgICAgXCJwb3NzaWJsZV91c19zdGF0ZVwiOiB7XCJuYW1lXCI6IFwiTWlzaXNpcGlcIn0sXG4gICAgICBcInNwZWxsaW5nX2NvcnJlY3Rpb25fcmVxdWlyZWRcIjogdHJ1ZSxcbiAgICAgIFwiY29ycmVjdGVkX3NwZWxsaW5nXCI6IFwiTWlzc2lzc2lwcGlcIlxuICAgIH1cbiAgXSxcbiAgXCJyZWplY3RlZFwiOiBbXG4gICAge1wibmFtZVwiOiBcIkdyYW5kIFJhcGlkc1wifVxuICBdXG59XG5cbkkgbmVlZCB0byBtYWtlIHN1cmUgdGhhdCB0aGUgSlNPTiBpcyB2YWxpZC4gQWxzbywgY2hlY2sgaWYgdGhlIGNvcnJlY3RlZCBzcGVsbGluZyBpcyBjb3JyZWN0LiBZdXRhaCDihpIgVXRhaCwgTWlzaXNpcGkg4oaSIE1pc3Npc3NpcHBpLiBZZXMuIEFuZCB0aGF0IGFsbCByZXF1aXJlZCBmaWVsZHMgYXJlIHByZXNlbnQuIFRoZSBzY2hlbWEgcmVxdWlyZXMgXCJwb3NzaWJsZV91c19zdGF0ZVwiLCBcInNwZWxsaW5nX2NvcnJlY3Rpb25fcmVxdWlyZWRcIiBmb3IgZWFjaCB2ZXJpZmllZCBlbnRyeS4gQ29ycmVjdGVkX3NwZWxsaW5nIGlzIG9wdGlvbmFsIChjYW4gYmUgbnVsbCkuIFJlamVjdGVkIGVudHJpZXMganVzdCBuZWVkIFwibmFtZVwiLlxuXG5ZZXMsIHRoaXMgc2hvdWxkIGJlIGNvcnJlY3QuXG5cdTAwM2MvdGhpbmtcdTAwM2Vcblxue1xuICBcInZlcmlmaWVkXCI6IFtcbiAgICB7XG4gICAgICBcInBvc3NpYmxlX3VzX3N0YXRlXCI6IHtcbiAgICAgICAgXCJuYW1lXCI6IFwiT3JlZ29uXCJcbiAgICAgIH0sXG4gICAgICBcInNwZWxsaW5nX2NvcnJlY3Rpb25fcmVxdWlyZWRcIjogZmFsc2UsXG4gICAgICBcImNvcnJlY3RlZF9zcGVsbGluZ1wiOiBudWxsXG4gICAgfSxcbiAgICB7XG4gICAgICBcInBvc3NpYmxlX3VzX3N0YXRlXCI6IHtcbiAgICAgICAgXCJuYW1lXCI6IFwiWXV0YWhcIlxuICAgICAgfSxcbiAgICAgIFwic3BlbGxpbmdfY29ycmVjdGlvbl9yZXF1aXJlZFwiOiB0cnVlLFxuICAgICAgXCJjb3JyZWN0ZWRfc3BlbGxpbmdcIjogXCJVdGFoXCJcbiAgICB9LFxuICAgIHtcbiAgICAgIFwicG9zc2libGVfdXNfc3RhdGVcIjoge1xuICAgICAgICBcIm5hbWVcIjogXCJNaXNpc2lwaVwiXG4gICAgICB9LFxuICAgICAgXCJzcGVsbGluZ19jb3JyZWN0aW9uX3JlcXVpcmVkXCI6IHRydWUsXG4gICAgICBcImNvcnJlY3RlZF9zcGVsbGluZ1wiOiBcIk1pc3Npc3NpcHBpXCJcbiAgICB9XG4gIF0sXG4gIFwicmVqZWN0ZWRcIjogW1xuICAgIHtcbiAgICAgIFwibmFtZVwiOiBcIkdyYW5kIFJhcGlkc1wiXG4gICAgfVxuICBdXG59In0sImRvbmVfcmVhc29uIjoic3RvcCIsImRvbmUiOnRydWUsInRvdGFsX2R1cmF0aW9uIjoyMDM1MjAzNDU5MCwibG9hZF9kdXJhdGlvbiI6NDc0NDg1MzksInByb21wdF9ldmFsX2NvdW50Ijo1ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjo0NTc3MTU4MTEsImV2YWxfY291bnQiOjExMzYsImV2YWxfZHVyYXRpb24iOjE5ODQyOTIzNzk4fQ==
+  recorded_at: Mon, 11 Aug 2025 22:23:46 GMT
+recorded_with: VCR 6.3.1

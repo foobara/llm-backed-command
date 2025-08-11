@@ -8,7 +8,7 @@ gemspec
 # gem "foobara", path: "../foobara"
 # gem "foobara-ai", path: "../ai"
 
-gem "foobara-dotenv-loader", "~> 0.0.1"
+gem "foobara-dotenv-loader", "< 2.0.0"
 
 gem "rake"
 
@@ -32,7 +32,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "foobara-spec-helpers", "~> 0.0.1"
+  gem "foobara-spec-helpers", "< 2.0.0"
   gem "rspec"
   gem "rspec-its"
   gem "ruby-prof"

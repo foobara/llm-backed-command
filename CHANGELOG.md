@@ -1,3 +1,7 @@
+## [1.0.2] - 2025-08-11
+
+- Handle situation where smaller models incorrectly use {"result":"whatever"} instead of "whatever"
+
 ## [1.0.1] - 2025-07-09
 
 - Use foobara-ai version 1.0.0

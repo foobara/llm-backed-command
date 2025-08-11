@@ -35,11 +35,12 @@ module Foobara
       construct_messages
       generate_answer
       parse_answer
+      attempt_to_recover_from_bad_format
 
-      parsed_answer
+      final_answer
     end
 
-    attr_accessor :answer, :parsed_answer, :messages, :assistant_serializer, :user_serializer,
+    attr_accessor :final_answer, :answer, :parsed_answer, :messages, :assistant_serializer, :user_serializer,
                   :computed_assistant_association_depth, :computed_user_association_depth,
                   :llm_instructions
 
@@ -179,6 +180,31 @@ module Foobara
           # :nocov:
         end
       end
+    end
+
+    # Sometimes we get {"result": "whatever"} instead of just "whatever" from some smaller models.
+    # Let's detect that and handle it...
+    def attempt_to_recover_from_bad_format
+      self.final_answer = if parsed_answer.is_a?(::Hash) && parsed_answer.keys == ["result"]
+                            result_type = self.class.result_type
+
+                            # TODO: implement a Type#valid? method
+                            if result_type.process_value(parsed_answer).success?
+                              parsed_answer
+                            else
+                              result = parsed_answer["result"]
+
+                              if result_type.process_value(result).success?
+                                result
+                              else
+                                # :nocov:
+                                parsed_answer
+                                # :nocov:
+                              end
+                            end
+                          else
+                            parsed_answer
+                          end
     end
 
     module ClassMethods

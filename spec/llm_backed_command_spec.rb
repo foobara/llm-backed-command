@@ -139,8 +139,8 @@ RSpec.describe Foobara::LlmBackedCommand do
       expect(result[:rejected][0].name).to eq("Grand Rapids")
     end
 
-    context "when the model produces answer that have a <THINK></THINK> section" do
-      let(:llm_model) { "deepseek-r1:70b" }
+    context "when the model produces answer that have a THINK section" do
+      let(:llm_model) { "qwen3:32b" }
 
       let(:inputs) do
         {
@@ -281,6 +281,63 @@ RSpec.describe Foobara::LlmBackedCommand do
       expect(outcome).to be_success
 
       expect(result).to eq(max: 14)
+    end
+  end
+
+  context 'with a smaller model that incorrectly uses a {"result": "whatever"} format instead of just "whatever"' do
+    let(:command_class) do
+      stub_class :DetermineDateRelativeToToday, described_class do
+        inputs do
+          phrase :string, :required
+          today :date, default: -> { Date.today }
+          llm_model Foobara::Ai::AnswerBot::Types.model_enum, default: "qwen3-coder:30b"
+        end
+
+        result :date, description: "The date referred to in the phrase relative to today"
+
+        def llm_model
+          "qwen3-coder:30b"
+        end
+      end
+    end
+
+    let(:inputs) do
+      { phrase:, today: }
+    end
+
+    let(:today) { Date.parse("2025-01-01") }
+    let(:phrase) { "yesterday" }
+
+    it "is successful", vcr: { record: :none } do
+      expect(outcome).to be_success
+
+      expect(result.year).to eq(2024)
+      expect(result.month).to eq(12)
+      expect(result.day).to eq(31)
+    end
+  end
+
+  context "with a result key in the result" do
+    let(:command_class) do
+      stub_class "DetermineMax", described_class do
+        inputs do
+          values [:integer], :required
+        end
+
+        result do
+          result :integer, :required
+        end
+      end
+    end
+
+    let(:inputs) do
+      { values: [4, 14, 10] }
+    end
+
+    it "gives the expected result", vcr: { record: :none } do
+      expect(outcome).to be_success
+
+      expect(result).to eq(result: 14)
     end
   end
 end

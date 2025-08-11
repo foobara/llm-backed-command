@@ -1,0 +1,87 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-3-7-sonnet-20250219","max_tokens":1024,"messages":[{"role":"user","content":"{\"values\":[4,14,10]}"}],"temperature":0.0,"system":"You
+        are implementing an API for a command named DetermineMax which has the following
+        description:\n\n\n\nHere is the inputs JSON schema for the data you will receive:\n\n{\"type\":\"object\",\"required\":[\"values\"],\"properties\":{\"values\":{\"type\":\"array\",\"items\":{\"type\":\"number\"}}}}\n\nHere
+        is the result JSON schema:\n\n{\"type\":\"object\",\"required\":[\"result\"],\"properties\":{\"result\":{\"type\":\"number\"}}}\n\nYou
+        will receive 1 message containing only JSON data according to the inputs JSON
+        schema above\nand you will generate a JSON response that is a valid response
+        according to the result JSON schema above.\n\nYou will reply with nothing
+        more than the JSON you''ve generated so that the calling code\ncan successfully
+        parse your answer.\n"}'
+    headers:
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<SCRUBBED_ANTHROPIC_API_KEY>"
+      Anthropic-Version:
+      - '2023-06-01'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 11 Aug 2025 22:29:24 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '80000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '80000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2025-08-11T22:29:23Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '32000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '32000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2025-08-11T22:29:24Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '2000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '1999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2025-08-11T22:29:22Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '112000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '112000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2025-08-11T22:29:23Z'
+      Request-Id:
+      - req_011CS2iHHKWD5CWikXJzaneZ
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 7a8e3751-3b70-4f90-a3ce-07f57c9d0bfc
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 96db2bdd2ed81742-SJC
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"msg_017hjpWcMj7jgP7hYjFu6C24","type":"message","role":"assistant","model":"claude-3-7-sonnet-20250219","content":[{"type":"text","text":"{\"result\":14}"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":177,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":8,"service_tier":"standard"}}'
+  recorded_at: Mon, 11 Aug 2025 22:29:24 GMT
+recorded_with: VCR 6.3.1
