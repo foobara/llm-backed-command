@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
     "CHANGELOG.md"
   ]
 
-  spec.add_dependency "foobara", ">= 0.0.136", "< 2.0.0"
+  spec.add_dependency "foobara", ">= 0.1.1", "< 2.0.0"
   spec.add_dependency "foobara-ai", ">= 1.0.0", "< 2.0.0"
   spec.add_dependency "foobara-json-schema-generator", ">= 1.0.0", "< 2.0.0"
 
