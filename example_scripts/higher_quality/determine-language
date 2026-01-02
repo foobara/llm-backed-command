@@ -19,7 +19,7 @@ class DetermineLanguage < Foobara::LlmBackedCommand
   end
 
   result do
-    most_likely :symbol, :required, one_of: ["ruby", "c", "smalltalk", "java"]
+    most_likely :symbol, :required, one_of: ["ruby", "c", "smalltalk", "java", "kotlin"]
     probabilities description: "Estimated probabilities of each language between 0 and 1" do
       ruby :float, :required
       c :float, :required
@@ -29,4 +29,4 @@ class DetermineLanguage < Foobara::LlmBackedCommand
   end
 end
 
-Foobara::CommandConnectors::ShCliConnector.new(single_command_mode: DetermineLanguage).run(ARGV)
+Foobara::CommandConnectors::ShCliConnector.new(single_command_mode: DetermineLanguage).run
