@@ -130,7 +130,18 @@ module Foobara
     end
 
     def serialize_content(content)
-      inputs[:input_format] == :toon ? serialize_with_toon(content) : JSON.fast_generate(content)
+      (inputs[:input_format] || :json) == :json ? JSON.fast_generate(content) : serialize_with_toon(content)
+      # case inputs[:input_format]
+      # when :json, nil
+      #   JSON.fast_generate(content)
+      # when :toon
+      #   serialize_with_toon(content)
+      # else
+      #   # Should be unreachable. Defensive programming for case where serializer isn't handled here
+      #   # :nocov:
+      #   raise "This code path shouldn't be reachable. Did the list of serializers change?"
+      #   # :nocov:
+      # end
     end
 
     def determine_llm_instructions
@@ -246,7 +257,6 @@ module Foobara
           end
 
           if type_declaration[:defaults].empty?
-            binding.pry unless changed
             type_declaration.delete(:defaults)
           end
         end

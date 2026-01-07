@@ -217,8 +217,7 @@ RSpec.describe Foobara::LlmBackedCommand do
       }
     end
 
-    it "is successful", :focus, vcr: { record: :none } do
-      binding.pry
+    it "is successful",  vcr: { record: :none } do
       expect(outcome).to be_success
 
       expect(result).to eq(8)
@@ -321,7 +320,7 @@ RSpec.describe Foobara::LlmBackedCommand do
   context "with a result key in the result" do
     let(:command_class) do
       stub_class "DetermineMax", described_class do
-        add_inputs do
+        inputs do
           values [:integer], :required
         end
 
