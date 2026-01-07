@@ -13,7 +13,8 @@ module Foobara
       :llm_model,
       :association_depth,
       :user_association_depth,
-      :assistant_association_depth
+      :assistant_association_depth,
+      :input_format
     ].freeze
 
     on_include do
@@ -24,6 +25,9 @@ module Foobara
                        raw_answer: :string,
                        stripped_answer: :string
                      }
+      add_inputs do
+        input_format :symbol, one_of: [:json, :toon], default: :json
+      end
     end
 
     def execute
@@ -120,9 +124,13 @@ module Foobara
                        end
 
           content = serializer.serialize(content)
-          message.merge(content: JSON.fast_generate(content))
+          message.merge(content: serialize_content(content))
         end
       end
+    end
+
+    def serialize_content(content)
+      inputs[:input_format] == :toon ? serialize_with_toon(content) : JSON.fast_generate(content)
     end
 
     def determine_llm_instructions
@@ -238,6 +246,7 @@ module Foobara
           end
 
           if type_declaration[:defaults].empty?
+            binding.pry unless changed
             type_declaration.delete(:defaults)
           end
         end

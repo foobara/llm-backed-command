@@ -49,7 +49,7 @@ RSpec.describe Foobara::LlmBackedCommand do
         result[:rejected][0].name # => "Los Angeles"
       DESCRIPTION
 
-      inputs do
+      add_inputs do
         list_of_possible_states [PossibleUsState]
       end
 
@@ -64,7 +64,7 @@ RSpec.describe Foobara::LlmBackedCommand do
     end
   end
 
-  let(:command) { command_class.new(inputs) }
+  let(:command) { command_class.new(inputs || {}) }
   let(:outcome) { command.run }
   let(:result) { outcome.result }
   let(:errors) { outcome.errors }
@@ -95,7 +95,7 @@ RSpec.describe Foobara::LlmBackedCommand do
       end
     end
 
-    it "is successful", vcr: { record: :none } do
+    it "is successful",  vcr: { record: :none } do
       expect(outcome).to be_success
 
       expect(result[:verified].length).to eq(3)
@@ -217,7 +217,8 @@ RSpec.describe Foobara::LlmBackedCommand do
       }
     end
 
-    it "is successful", vcr: { record: :none } do
+    it "is successful", :focus, vcr: { record: :none } do
+      binding.pry
       expect(outcome).to be_success
 
       expect(result).to eq(8)
@@ -287,7 +288,7 @@ RSpec.describe Foobara::LlmBackedCommand do
   context 'with a smaller model that incorrectly uses a {"result": "whatever"} format instead of just "whatever"' do
     let(:command_class) do
       stub_class :DetermineDateRelativeToToday, described_class do
-        inputs do
+        add_inputs do
           phrase :string, :required
           today :date, default: -> { Date.today }
           llm_model Foobara::Ai::AnswerBot::Types.model_enum, default: "qwen3-coder:30b"
@@ -320,7 +321,7 @@ RSpec.describe Foobara::LlmBackedCommand do
   context "with a result key in the result" do
     let(:command_class) do
       stub_class "DetermineMax", described_class do
-        inputs do
+        add_inputs do
           values [:integer], :required
         end
 
