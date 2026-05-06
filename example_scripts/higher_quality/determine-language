@@ -15,7 +15,7 @@ class DetermineLanguage < Foobara::LlmBackedCommand
 
   inputs do
     code_snippet :string, :required, "The code snippet you'd like to determine the language of"
-    llm_model Foobara::Ai::AnswerBot::Types.model_enum, default: "claude-3-7-sonnet-20250219"
+    llm_model "AnswerBot::model_enum", default: Foobara::Ai.default_llm_model
   end
 
   result do
