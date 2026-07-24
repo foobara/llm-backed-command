@@ -198,7 +198,7 @@ RSpec.describe Foobara::LlmBackedCommand do
         inputs do
           base :integer, :required
           exponent :integer, :required
-          llm_model Foobara::Ai::AnswerBot::Types.model_enum, default: "deepseek-r1:14b"
+          llm_model Foobara::Ai::AnswerBot.foobara_lookup_type(:model_enum), default: "deepseek-r1:14b"
         end
 
         result :integer
@@ -290,7 +290,7 @@ RSpec.describe Foobara::LlmBackedCommand do
         inputs do
           phrase :string, :required
           today :date, default: -> { Date.today }
-          llm_model Foobara::Ai::AnswerBot::Types.model_enum, default: "qwen3-coder:30b"
+          llm_model Foobara::Ai::AnswerBot.foobara_lookup_type(:model_enum), default: "qwen3-coder:30b"
         end
 
         result :date, description: "The date referred to in the phrase relative to today"
