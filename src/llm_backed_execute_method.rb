@@ -81,9 +81,9 @@ module Foobara
       when Foobara::AssociationDepth::PRIMARY_KEY_ONLY
         Foobara::CommandConnectors::Serializers::EntitiesToPrimaryKeysSerializer
       else
-        # :nocov:
+        # simplecov:disable
         raise "Unknown depth: #{depth}"
-        # :nocov:
+        # simplecov:enable
       end.instance
     end
 
@@ -120,7 +120,7 @@ module Foobara
                        end
 
           content = serializer.serialize(content)
-          message.merge(content: JSON.fast_generate(content))
+          message.merge(content: JSON.generate(content))
         end
       end
     end
@@ -166,18 +166,18 @@ module Foobara
             fencepostless_answer = match[1]
             JSON.parse(fencepostless_answer)
           else
-            # :nocov:
+            # simplecov:disable
             raise
-            # :nocov:
+            # simplecov:enable
           end
         rescue JSON::ParserError => e
           # TODO: figure out how to test this code path
-          # :nocov:
+          # simplecov:disable
           add_runtime_error :could_not_parse_result_json,
                             "Could not parse result JSON: #{e.message}",
                             raw_answer: answer,
                             stripped_answer: fencepostless_answer
-          # :nocov:
+          # simplecov:enable
         end
       end
     end
@@ -197,9 +197,9 @@ module Foobara
                               if result_type.process_value(result).success?
                                 result
                               else
-                                # :nocov:
+                                # simplecov:disable
                                 parsed_answer
-                                # :nocov:
+                                # simplecov:enable
                               end
                             end
                           else
@@ -262,9 +262,9 @@ module Foobara
         @llm_instructions_cache ||= {}
 
         if @llm_instructions_cache.key?(key)
-          # :nocov:
+          # simplecov:disable
           @llm_instructions_cache[key]
-          # :nocov:
+          # simplecov:enable
         else
           @llm_instructions_cache[key] = build_llm_instructions(user_association_depth, assistant_association_depth)
         end

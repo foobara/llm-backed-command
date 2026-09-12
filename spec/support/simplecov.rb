@@ -1,8 +1,8 @@
 require "simplecov"
 
 SimpleCov.start do
-  add_filter "/spec/support/"
-  add_filter "/boot/"
+  skip "/spec/support/"
+  skip "/boot/"
 
   enable_coverage :branch
   enable_coverage :line

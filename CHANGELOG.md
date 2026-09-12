@@ -1,3 +1,7 @@
+## [1.0.3] - 2026-09-11
+
+- Handle removed JSON.fast_generate
+
 ## [1.0.2] - 2025-08-11
 
 - Handle situation where smaller models incorrectly use {"result":"whatever"} instead of "whatever"
