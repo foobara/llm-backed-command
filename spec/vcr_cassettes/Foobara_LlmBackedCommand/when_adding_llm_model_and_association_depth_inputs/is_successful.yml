@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.anthropic.com/v1/messages
     body:
       encoding: UTF-8
-      string: '{"model":"claude-3-7-sonnet-20250219","max_tokens":1024,"messages":[{"role":"user","content":"{\"list_of_possible_states\":[{\"name\":\"Grand
+      string: '{"model":"claude-sonnet-5","max_tokens":1024,"messages":[{"role":"user","content":"{\"list_of_possible_states\":[{\"name\":\"Grand
         Rapids\"},{\"name\":\"Oregon\"},{\"name\":\"Yutah\"},{\"name\":\"Misisipi\"}]}"}],"system":"You
         are implementing an API for a command named SelectUsStateNamesAndCorrectTheirSpelling
         which has the following description:\n\nAccepts a list of possible US state
@@ -17,8 +17,8 @@ http_interactions:
         # => true \nresult[:verified][0].corrected_spelling # => \"California\"\nresult[:verified][1].possible_us_state.name
         # => \"New York\"\nresult[:verified][1].spelling_correction_required # =>
         false\nresult[:verified][1].corrected_spelling # => nil\n\nresult[:rejected].length
-        # => 1\nresult[:rejected][0].name # => \"Los Angeles\"\n  \n\nHere is the
-        inputs JSON schema for the data you will receive:\n\n{\"type\":\"object\",\"properties\":{\"list_of_possible_states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
+        # => 1\nresult[:rejected][0].name # => \"Los Angeles\"\n\n\nHere is the inputs
+        JSON schema for the data you will receive:\n\n{\"type\":\"object\",\"properties\":{\"list_of_possible_states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
         name that potentially might be a name of a US state, spelled correctly or
         incorrectly\"}}}}}}\n\nHere is the result JSON schema:\n\n{\"type\":\"object\",\"properties\":{\"verified\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"possible_us_state\",\"spelling_correction_required\"],\"properties\":{\"possible_us_state\":{\"type\":\"object\",\"required\":[\"name\"],\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"A
         name that potentially might be a name of a US state, spelled correctly or
@@ -51,54 +51,62 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 05 Mar 2025 00:52:57 GMT
+      - Tue, 22 Sep 2026 15:55:16 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
       - chunked
       Connection:
       - keep-alive
-      Anthropic-Ratelimit-Requests-Limit:
-      - '50'
-      Anthropic-Ratelimit-Requests-Remaining:
-      - '49'
-      Anthropic-Ratelimit-Requests-Reset:
-      - '2025-03-05T00:52:56Z'
       Anthropic-Ratelimit-Input-Tokens-Limit:
-      - '20000'
+      - '10000000'
       Anthropic-Ratelimit-Input-Tokens-Remaining:
-      - '20000'
+      - '10000000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2025-03-05T00:52:57Z'
+      - '2026-09-22T15:55:15Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
-      - '8000'
+      - '2000000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
-      - '8000'
+      - '2000000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2025-03-05T00:52:57Z'
+      - '2026-09-22T15:55:16Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '10000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '9999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2026-09-22T15:55:14Z'
       Anthropic-Ratelimit-Tokens-Limit:
-      - '28000'
+      - '12000000'
       Anthropic-Ratelimit-Tokens-Remaining:
-      - '28000'
+      - '12000000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2025-03-05T00:52:57Z'
+      - '2026-09-22T15:55:15Z'
+      Server:
+      - cloudflare
       Request-Id:
-      - req_01VhHcUPaDEpQUGzppbRzAed
+      - req_011CfJkSn3JideJ4iAMLURCW
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 7a8e3751-3b70-4f90-a3ce-07f57c9d0bfc
-      Via:
-      - 1.1 google
+      Anthropic-Workspace-Id:
+      - wrkspc_013AUxEybhVuYiAtdL5BCByf
+      Traceresponse:
+      - 00-fa965b110264961304f6bdb9cc546dd1-8f1d4eb6378ef6fc-01
+      Vary:
+      - Accept-Encoding
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
       - none
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 91b5a2265cde171e-SJC
+      - a3f27e26bd71fca9-SJC
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"msg_01NV1sYtVHUo5QpcizEiQkpr","type":"message","role":"assistant","model":"claude-3-7-sonnet-20250219","content":[{"type":"text","text":"{\"verified\":[{\"possible_us_state\":{\"name\":\"Oregon\"},\"spelling_correction_required\":false,\"corrected_spelling\":null},{\"possible_us_state\":{\"name\":\"Yutah\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Utah\"},{\"possible_us_state\":{\"name\":\"Misisipi\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Mississippi\"}],\"rejected\":[{\"name\":\"Grand
-        Rapids\"}]}"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":669,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":109}}'
-  recorded_at: Wed, 05 Mar 2025 00:52:57 GMT
-recorded_with: VCR 6.3.1
+      string: '{"model":"claude-sonnet-5","id":"msg_011CfJkSnsAMxNhkD1e8fexE","type":"message","role":"assistant","content":[{"type":"thinking","thinking":"","signature":"Es4CCpABCBIYAipAFGMQ6UF/n84yd+TW05zy9/ylelmpko8v56TbChII7GAW9/WlwctWGfuyNgJk0bgTyBgkhH78yCvHvyDk9vTJQDIPY2xhdWRlLXNvbm5ldC01OABCCHRoaW5raW5nWiQ3YThlMzc1MS0zYjcwLTRmOTAtYTNjZS0wN2Y1N2M5ZDBiZmOoAePJytUGEgwWOHcI3tljtrL7dnAaDMMDqs0zfWvuBOSM3CIw8JzzM9euu+Y4xnGIz6nN9OOAYCd37H2BCht594jvGl4zS25jgp+9jla23jW16ZAAKmtOqLSK+Di94wsdOHIjKt/Y0amlgpl2LGV/S3/TrDF82sH3PV+EQ40tT3DIEFkpreMyQ33tOE/NZ9WGrgRZfwJTXfwDQhRtcOLM3tITYA1aNmn3Aw5ig7RMhwNY82GlsBF9xmuj3073guOVJxgB"},{"type":"text","text":"{\"verified\":[{\"possible_us_state\":{\"name\":\"Oregon\"},\"spelling_correction_required\":false,\"corrected_spelling\":null},{\"possible_us_state\":{\"name\":\"Yutah\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Utah\"},{\"possible_us_state\":{\"name\":\"Misisipi\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Mississippi\"}],\"rejected\":[{\"name\":\"Grand
+        Rapids\"}]}"}],"container":null,"stop_reason":"end_turn","stop_sequence":null,"stop_details":null,"usage":{"input_tokens":921,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":220,"output_tokens_details":{"thinking_tokens":49},"service_tier":"standard","inference_geo":"global"}}'
+  recorded_at: Tue, 22 Sep 2026 15:55:16 GMT
+recorded_with: VCR 6.4.0

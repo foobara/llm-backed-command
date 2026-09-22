@@ -8,6 +8,7 @@ gemspec
 # gem "foobara", path: "../foobara"
 # gem "foobara-ai", path: "../ai"
 # gem "foobara-json-schema-generator", path: "../json-schema-generator"
+# gem "foobara-http-api-command", path: "../http-api-command"
 
 gem "foobara-dotenv-loader", "< 2.0.0"
 
@@ -22,9 +23,9 @@ group :development do
 end
 
 group :development, :test do
-  gem "foobara-anthropic-api", "< 2.0.0" # , path: "../anthropic-api"
-  gem "foobara-ollama-api", "< 2.0.0"
-  gem "foobara-open-ai-api", "< 2.0.0"
+  gem "foobara-anthropic-api", ">= 1.0.8", "< 2.0.0" # , path: "../anthropic-api"
+  gem "foobara-ollama-api", "< 2.0.0" # , path: "../ollama-api"
+  gem "foobara-open-ai-api", "< 2.0.0" # , path: "../open-ai-api"
   gem "pry"
   gem "pry-byebug"
 end

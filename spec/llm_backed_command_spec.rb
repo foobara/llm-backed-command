@@ -85,7 +85,7 @@ RSpec.describe Foobara::LlmBackedCommand do
     ]
   end
 
-  let(:llm_model) { "claude-3-7-sonnet-20250219" }
+  let(:llm_model) { "claude-sonnet-5" }
 
   context "with an llm_model method" do
     before do
@@ -95,7 +95,7 @@ RSpec.describe Foobara::LlmBackedCommand do
       end
     end
 
-    it "is successful", vcr: { record: :none } do
+    it "is successful",  vcr: { record: :none } do
       expect(outcome).to be_success
 
       expect(result[:verified].length).to eq(3)
@@ -122,14 +122,15 @@ RSpec.describe Foobara::LlmBackedCommand do
   context "when adding llm_model and association_depth inputs" do
     before do
       command_class.add_inputs do
-        llm_model :symbol, one_of: Foobara::Ai::AnswerBot::Types::ModelEnum, default: "claude-3-7-sonnet-20250219"
+        llm_model :symbol, one_of: Foobara::Ai::AnswerBot::Types::ModelEnum,
+                           default: "claude-sonnet-5"
         association_depth :symbol,
                           one_of: Foobara::AssociationDepth,
                           default: Foobara::AssociationDepth::ATOM
       end
     end
 
-    it "is successful", vcr: { record: :none } do
+    it "is successful", :none, vcr: { record: :once } do
       expect(outcome).to be_success
 
       expect(result[:verified].length).to eq(3)
@@ -164,7 +165,8 @@ RSpec.describe Foobara::LlmBackedCommand do
   context "when adding user_association_depth and assistant_association_depth inputs" do
     before do
       command_class.add_inputs do
-        llm_model :symbol, one_of: Foobara::Ai::AnswerBot::Types::ModelEnum, default: "claude-3-7-sonnet-20250219"
+        llm_model :symbol, one_of: Foobara::Ai::AnswerBot::Types::ModelEnum,
+                           default: "claude-sonnet-5"
         user_association_depth :symbol,
                                one_of: Foobara::AssociationDepth,
                                default: Foobara::AssociationDepth::ATOM

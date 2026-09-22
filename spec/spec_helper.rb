@@ -33,6 +33,7 @@ require "foobara/spec_helpers/all"
 # 6. undo 3 and 4.
 VCR.use_cassette("list_models", record: :none) do
   require "foobara/anthropic_api"
+  require "foobara/open_ai_api"
   require "foobara/ollama_api"
   require_relative "../boot/finish"
 end

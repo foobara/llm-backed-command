@@ -1,3 +1,7 @@
+## [1.0.4] - 2026-09-22
+
+- Make use of newest foobara-* gems
+
 ## [1.0.3] - 2026-09-11
 
 - Handle removed JSON.fast_generate
