@@ -1,6 +1,6 @@
 module Foobara
   module LlmBackedCommandVersion
-    VERSION = "1.0.4".freeze
+    VERSION = "1.0.5".freeze
     MINIMUM_RUBY_VERSION = [">= 3.4.0", "< 4.1"].freeze
   end
 end

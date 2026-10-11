@@ -1,3 +1,7 @@
+## [1.0.5] - 2026-10-10
+
+- Assume the LLM just failed to encode the result is unparsable and the result_type is :string
+
 ## [1.0.4] - 2026-09-22
 
 - Make use of newest foobara-* gems

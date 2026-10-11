@@ -167,16 +167,23 @@ module Foobara
             JSON.parse(fencepostless_answer)
           else
             # simplecov:disable
+            # TODO: raise some specific error here
             raise
             # simplecov:enable
           end
         rescue JSON::ParserError => e
-          # TODO: figure out how to test this code path
+          # TODO: should we retry letting it see the error?
           # simplecov:disable
-          add_runtime_error :could_not_parse_result_json,
-                            "Could not parse result JSON: #{e.message}",
-                            raw_answer: answer,
-                            stripped_answer: fencepostless_answer
+          if self.class.result_type.extends?(Foobara::BuiltinTypes[:string])
+            # let's assume the LLM just didn't bother JSON encoding the string... maybe not safe?
+            fencepostless_answer
+          else
+            # TODO: figure out how to test this code path
+            add_runtime_error :could_not_parse_result_json,
+                              "Could not parse result JSON: #{e.message}",
+                              raw_answer: answer,
+                              stripped_answer: fencepostless_answer
+          end
           # simplecov:enable
         end
       end
