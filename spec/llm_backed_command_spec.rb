@@ -95,7 +95,7 @@ RSpec.describe Foobara::LlmBackedCommand do
       end
     end
 
-    it "is successful",  vcr: { record: :none } do
+    it "is successful", vcr: { record: :none } do
       expect(outcome).to be_success
 
       expect(result[:verified].length).to eq(3)
@@ -130,7 +130,7 @@ RSpec.describe Foobara::LlmBackedCommand do
       end
     end
 
-    it "is successful", :none, vcr: { record: :once } do
+    it "is successful", vcr: { record: :none } do
       expect(outcome).to be_success
 
       expect(result[:verified].length).to eq(3)

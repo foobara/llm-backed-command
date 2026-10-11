@@ -1,11 +1,70 @@
 ---
 http_interactions:
 - request:
+    method: get
+    uri: https://api.anthropic.com/v1/models/claude-sonnet-5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<SCRUBBED_ANTHROPIC_API_KEY>"
+      Anthropic-Version:
+      - '2023-06-01'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 10 Oct 2026 22:35:42 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Request-Id:
+      - req_011CfuMYRzg67JPtQDSQceUq
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 7a8e3751-3b70-4f90-a3ce-07f57c9d0bfc
+      Anthropic-Workspace-Id:
+      - wrkspc_013AUxEybhVuYiAtdL5BCByf
+      Server:
+      - cloudflare
+      Vary:
+      - Accept-Encoding
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Server-Timing:
+      - x-originResponse;dur=73
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Cf-Ray:
+      - a4891982ee0e15a4-SJC
+    body:
+      encoding: ASCII-8BIT
+      string: '{"type":"model","id":"claude-sonnet-5","display_name":"Claude Sonnet
+        5","created_at":"2026-06-29T00:00:00Z","line":"sonnet","max_input_tokens":1000000,"max_tokens":128000,"capabilities":{"batch":{"supported":true},"citations":{"supported":true},"code_execution":{"supported":true},"context_management":{"supported":true,"clear_tool_uses_20250919":{"supported":true},"clear_thinking_20251015":{"supported":true},"compact_20260112":{"supported":true}},"effort":{"supported":true,"low":{"supported":true},"medium":{"supported":true},"high":{"supported":true},"xhigh":{"supported":true},"max":{"supported":true}},"image_input":{"supported":true},"pdf_input":{"supported":true},"server_tools":{"supported":true,"code_execution":{"supported":true},"web_search":{"supported":true}},"structured_outputs":{"supported":true},"thinking":{"supported":true,"types":{"enabled":{"supported":false},"adaptive":{"supported":true},"disabled":{"supported":true}}}},"lifecycle":"active","deprecated_at":null,"retires_at":null}'
+  recorded_at: Sat, 10 Oct 2026 22:35:40 GMT
+- request:
     method: post
     uri: https://api.anthropic.com/v1/messages
     body:
       encoding: UTF-8
-      string: '{"model":"claude-sonnet-5","max_tokens":1024,"messages":[{"role":"user","content":"{\"list_of_possible_states\":[{\"name\":\"Grand
+      string: '{"model":"claude-sonnet-5","max_tokens":128000,"messages":[{"role":"user","content":"{\"list_of_possible_states\":[{\"name\":\"Grand
         Rapids\"},{\"name\":\"Oregon\"},{\"name\":\"Yutah\"},{\"name\":\"Misisipi\"}]}"}],"system":"You
         are implementing an API for a command named SelectUsStateNamesAndCorrectTheirSpelling
         which has the following description:\n\nAccepts a list of possible US state
@@ -51,7 +110,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 22 Sep 2026 16:47:27 GMT
+      - Sat, 10 Oct 2026 22:35:44 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -63,50 +122,50 @@ http_interactions:
       Anthropic-Ratelimit-Input-Tokens-Remaining:
       - '10000000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2026-09-22T16:47:26Z'
+      - '2026-10-10T22:35:42Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '2000000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '2000000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2026-09-22T16:47:27Z'
+      - '2026-10-10T22:35:44Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '10000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '9999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2026-09-22T16:47:25Z'
+      - '2026-10-10T22:35:42Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '12000000'
       Anthropic-Ratelimit-Tokens-Remaining:
       - '12000000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2026-09-22T16:47:26Z'
-      Server:
-      - cloudflare
-      Request-Id:
-      - req_011CfJpRbS2Dss4B2x7yp7vh
+      - '2026-10-10T22:35:42Z'
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
+      Request-Id:
+      - req_011CfuMYSn3qSjfD1hEVGMi6
+      Traceresponse:
+      - 00-c301bf73eb1c854ba57c56e195240634-2401877b569df8c1-01
       Anthropic-Organization-Id:
       - 7a8e3751-3b70-4f90-a3ce-07f57c9d0bfc
       Anthropic-Workspace-Id:
       - wrkspc_013AUxEybhVuYiAtdL5BCByf
-      Traceresponse:
-      - 00-8405b773d16cb445f14e9650658ff946-de95cc255982f9e8-01
       Vary:
       - Accept-Encoding
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
+      Server:
+      - cloudflare
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
       - none
       Cf-Ray:
-      - a3f2ca98f9745a75-LAX
+      - a48919841b36810a-SJC
     body:
       encoding: ASCII-8BIT
-      string: '{"model":"claude-sonnet-5","id":"msg_011CfJpRbjdrWmK61cRXgLgb","type":"message","role":"assistant","content":[{"type":"thinking","thinking":"","signature":"EtACCpABCBIYAipAiieWQ/UFvJs9KOQS4THoT26nVTCp4O1AyYRSJOpWMoLh2ugry0HO03SKjYery39RxMKxMDQpKLAe5iqqs9rl2TIPY2xhdWRlLXNvbm5ldC01OABCCHRoaW5raW5nWiQ3YThlMzc1MS0zYjcwLTRmOTAtYTNjZS0wN2Y1N2M5ZDBiZmOoAZ/iytUGEgwKku/2MLPHO/jjARQaDHrO4FK+Hv5Qe5FMoCIwWTJMZ6vljeJ4K70wqmXbZ/DKQyhsWMNITjSUS5EoRSnfIPiGhr4fBbSRfVfdJsbBKm2nsyxqhsP8bwGOGwtJ6WV/O7eVsRWGKl0x2SzAOWmMH2kpqf2fqSY/yZmv+PaG+JnOZwA4CPW73lTsvEo4BE1QkXGLRlJmE+ycOaUoyzvjEeRpwEms7IQ4wchRoi8sDy/CEKpLqCtbVneCIv//GAE="},{"type":"text","text":"{\"verified\":[{\"possible_us_state\":{\"name\":\"Oregon\"},\"spelling_correction_required\":false,\"corrected_spelling\":null},{\"possible_us_state\":{\"name\":\"Yutah\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Utah\"},{\"possible_us_state\":{\"name\":\"Misisipi\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Mississippi\"}],\"rejected\":[{\"name\":\"Grand
-        Rapids\"}]}"}],"container":null,"stop_reason":"end_turn","stop_sequence":null,"stop_details":null,"usage":{"input_tokens":921,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":219,"output_tokens_details":{"thinking_tokens":48},"service_tier":"standard","inference_geo":"global"}}'
-  recorded_at: Tue, 22 Sep 2026 16:47:27 GMT
+      string: '{"model":"claude-sonnet-5","id":"msg_011CfuMYSzTd6nvCfFEyWwwc","type":"message","role":"assistant","content":[{"type":"thinking","thinking":"","signature":"EroFCscCCBIYAipAuudKP8J8cB+AuJs15RqSfFlZhxdvcLwGjnC6yLkzf3i1tzmUbnsXe9xJfAppZ1hmn4fy1/MixO5Ler7ENFEtGDIPY2xhdWRlLXNvbm5ldC01OABCCHRoaW5raW5nWiQ3YThlMzc1MS0zYjcwLTRmOTAtYTNjZS0wN2Y1N2M5ZDBiZmOaAREKD2NsYXVkZS1zb25uZXQtNagBv/uq1gbCAT0IBRAAGg8BelEC2ooDTzcF44MEJq0gAjIEEnHPJToEHlS8DEIEODMjikoEODMjilAAWgTZBeFWYAJoAXAB2gFgChZwcmVmaXhfYmVmb3JlX2Jsb2NrX3YxEiBBVqpSu1OWWF4FLXG/AZKnOl/1LgVj0VmT1oIu/s3Y+CIAMiDCwBPIapyS4i+Wbz2GF3aPi3pEyQKtzAl7+h4JivtOH0gDEgwzghfjPDB5r52tx78aDD0Y4wsqz+GybeiaLyIwPipwzO3U1HDFw7y6Io37gO4ToZr0uOj0sQqkrzwyMqqfRUwx/lowhby7pYVBl2eXKp8CKvDeyHEiu0nW4w4+Kd4YbbdkOq6JShlqRyeUQMf1pNHQZhgUBEP2v+JzX8OftBDgDNSHczxBY+Mw6vxSO51vQdMvVSNucCZof+MyzBwU+IkMwlNuegezB3duiFld97DqwfmaKBQDlJ74A4YQFWmtte2ebHpTtJuZpP38wdGsHGOvGeLBIIkgnGtUkX+xS0TZwqBaYehOGybrL5Q2hckhCFtOwFS8IMhrSONTL+qCikmsdTmyxdFQxtUuwu4aCrQKBNaAu9OF4Myf6c4D3LAaiZeOJ/AoisjbPqrZBKQv3HRL0iNgyIRF11N2/Nyf4MIi5VKyPysHhtMKz70HoOJbJpFH2jczJsoa89fkPHT2PzUuicMssGfCpr0NxhEZXV8YAQ=="},{"type":"text","text":"{\"verified\":[{\"possible_us_state\":{\"name\":\"Oregon\"},\"spelling_correction_required\":false,\"corrected_spelling\":null},{\"possible_us_state\":{\"name\":\"Yutah\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Utah\"},{\"possible_us_state\":{\"name\":\"Misisipi\"},\"spelling_correction_required\":true,\"corrected_spelling\":\"Mississippi\"}],\"rejected\":[{\"name\":\"Grand
+        Rapids\"}]}"}],"container":null,"stop_reason":"end_turn","stop_sequence":null,"stop_details":null,"usage":{"input_tokens":921,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":274,"output_tokens_details":{"thinking_tokens":103},"service_tier":"standard","inference_geo":"global"},"diagnostics":null}'
+  recorded_at: Sat, 10 Oct 2026 22:35:43 GMT
 recorded_with: VCR 6.4.0

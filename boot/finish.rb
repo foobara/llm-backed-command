@@ -22,3 +22,5 @@ Dir.entries(__dir__).each do |boot_file|
 end
 
 last.each { |f| require_relative f if File.exist?("#{__dir__}/#{f}") }
+
+Foobara.start!
