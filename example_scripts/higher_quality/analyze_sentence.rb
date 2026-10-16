@@ -2,6 +2,9 @@
 
 require "bundler/setup"
 
+# require "pry"
+# require "pry-byebug"
+
 # add your keys/urls to .env or set them some other way and delete these two lines
 require "foobara/load_dotenv"
 Foobara::LoadDotenv.run!(dir: __dir__)
@@ -17,7 +20,7 @@ module Grammarian
 
   foobara_depends_on Foobara::Ai::AnswerBot
 
-  foobara_register_type(:language, :symbol, one_of: [:french, :spanish, :english])
+  foobara_register_type(:language, :symbol, one_of: [:french, :english])
 
   class AnalyzedVerb < Foobara::Model
     attributes do
@@ -41,7 +44,8 @@ module Grammarian
   class AnalyzedSentence < Foobara::Model
     attributes do
       original_sentence :string, :required
-      english_translation :string, :allow_nil, "If the sentence is in Spanish, this will be the English translation"
+      english_translation :string, :allow_nil,
+                          "If the sentence is in French, this will be the English translation"
       language :language, :required
       corrected_sentence :string, :allow_nil,
                          "If the sentence has spelling errors, this will be a corrected version of the string"
@@ -63,16 +67,17 @@ module Grammarian
   end
 end
 
-# require "pry"
-# require "pry-byebug"
-
-llm_model = "claude-sonnet-5-5"
+# llm_model = "claude-sonnet-5-5"
 # llm_model = "gpt-3.5-turbo"
 # llm_model = "deepseek-r1:32b"
+# llm_model = "qwen3.8:27b"
 
-sentence = "El autor de este script quierre mostrarte estos comandos"
+# sentence = "L'auteur de ce script veut montrrer ces commandes aux Montréalais"
 
-analyzed_sentence = Grammarian::AnalyzeSentence.run!(llm_model:, sentence:)
+analyzed_sentence = Grammarian::AnalyzeSentence.run!(
+  llm_model: "qwen3.8:27b",
+  sentence: "L'auteur de ce script veut montrrer ces commandes aux Montréalais"
+)
 
 puts "The original sentence was:"
 puts analyzed_sentence.original_sentence
