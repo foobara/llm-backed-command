@@ -30,8 +30,8 @@ GEM
       foobara (>= 0.1.1, < 2.0.0)
     foobara-json-schema-generator (1.1.1)
       foobara (>= 0.1.1, < 2.0.0)
-    foobara-llm-backed-command (1.0.4)
-      foobara (>= 0.6.4, < 2.0.0)
+    foobara-llm-backed-command (1.0.5)
+      foobara (>= 0.7.3, < 2.0.0)
       foobara-ai (>= 1.0.6, < 2.0.0)
       foobara-json-schema-generator (>= 1.0.0, < 2.0.0)
     foobara-local-files-crud-driver (0.2.0)
@@ -135,7 +135,7 @@ CHECKSUMS
   foobara-http-api-command (0.0.9) sha256=516ef89c6df462c7fda789140f9354ac7d04c6b9bf3aa696e98a99700729c531
   foobara-http-command-connector (1.1.5) sha256=d8bcb4fb861741f86e7cea1f6deaa23c0e8885e476d4aa01b81f13bdba00aa32
   foobara-json-schema-generator (1.1.1) sha256=3bbebfb784ff7ac7c200d9ce0ef15bbc829bc00a5dc98d631dd8ce619fb1976b
-  foobara-llm-backed-command (1.0.4) sha256=a9bf77bb2ef417f5f3da1bcea005fbbe6a9bc56f028489091995ab381ec1b334
+  foobara-llm-backed-command (1.0.5) sha256=9fd2b12f06401e3f7b9e3e1da494761d602c3899fb98846f90719447b1e99fd3
   foobara-local-files-crud-driver (0.2.0) sha256=26b6281aaa01ae6df48cfd80460bf0d4507cb45fa1b9ec23bf27d6c77b15e3be
   foobara-lru-cache (1.0.0) sha256=ff9716e011a4642382dc0e1fd7a80751134b1fbf97d180fd333472a5d20f2029
   foobara-ollama-api (1.0.4) sha256=9aa46e4c8feb267fda712a1b444564ae10de24b798c1102aa37fa05ccb75c91a
