@@ -66,37 +66,3 @@ module Grammarian
     result AnalyzedSentence
   end
 end
-
-# llm_model = "claude-sonnet-5-5"
-# llm_model = "gpt-3.5-turbo"
-# llm_model = "deepseek-r1:32b"
-# llm_model = "qwen3.8:27b"
-
-# sentence = "L'auteur de ce script veut montrrer ces commandes aux Montréalais"
-
-analyzed_sentence = Grammarian::AnalyzeSentence.run!(
-  llm_model: "qwen3.8:27b",
-  sentence: "L'auteur de ce script veut montrrer ces commandes aux Montréalais"
-)
-
-puts "The original sentence was:"
-puts analyzed_sentence.original_sentence
-puts
-puts "The spell-corrected sentence is:"
-puts analyzed_sentence.corrected_sentence
-puts
-puts "The English translation is:"
-puts analyzed_sentence.english_translation
-puts
-
-analyzed_verb = analyzed_sentence.verbs.first
-
-puts "The first verb class is: #{analyzed_verb.class}"
-puts "and its uninflected form is: #{analyzed_verb.uninflected}"
-puts
-
-analyzed_verb = analyzed_sentence.verbs.last
-
-puts "The last verb is #{analyzed_verb.verb}, " \
-     "its direct object is #{analyzed_verb.direct_object}, " \
-     "and its indirect object is #{analyzed_verb.indirect_object}"

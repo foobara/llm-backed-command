@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+
+require "foobara/remote_imports"
+require "foobara/sh_cli_connector"
+
+Foobara::RemoteImports::ImportCommand.run!(
+  manifest_url: "http://localhost:9292/manifest"
+)
+
+connector = Foobara::CommandConnectors::ShCliConnector.new
+
+connector.connect(Grammarian)
+
+connector.run

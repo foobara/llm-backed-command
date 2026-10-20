@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+
+require "foobara/remote_imports"
+
+manifest_url = "http://localhost:9292/manifest"
+Foobara::RemoteImports::ImportCommand.run!(manifest_url:)
+
+analyzed_sentence = Grammarian::AnalyzeSentence.run!(
+  sentence: "L'auteur de ce script veut montrrer ces commandes aux Montréalais",
+  llm_model: "qwen3.8:27b"
+)
+
+puts "The original sentence was:"
+puts analyzed_sentence.original_sentence
+puts
+puts "The spell-corrected sentence is:"
+puts analyzed_sentence.corrected_sentence
+puts
+puts "The English translation is:"
+puts analyzed_sentence.english_translation
+puts
+
+analyzed_verb = analyzed_sentence.verbs.first
+
+puts "The first verb class is: #{analyzed_verb.class}"
+puts "and its uninflected form is: #{analyzed_verb.uninflected}"
+puts
+
+analyzed_verb = analyzed_sentence.verbs.last
+
+puts "The last verb is #{analyzed_verb.verb}."
+puts "Its direct object is #{analyzed_verb.direct_object}."
+puts "Its indirect object is #{analyzed_verb.indirect_object}."
