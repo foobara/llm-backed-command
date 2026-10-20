@@ -19,7 +19,7 @@ module Math
     inputs do
       base :integer, :required
       exponent :integer, :required
-      llm_model Foobara::Ai::AnswerBot::Types.model_enum, default: "claude-3-7-sonnet-20250219"
+      llm_model "Foobara::Ai::AnswerBot::model_enum", default: "claude-sonnet-5-5"
     end
 
     result :integer
