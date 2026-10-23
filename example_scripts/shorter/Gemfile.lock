@@ -1,93 +1,119 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    bigdecimal (4.0.1)
-    byebug (12.0.0)
+    bigdecimal (4.1.3)
+    byebug (13.0.0)
+      reline (>= 0.6.0)
+    cgi (0.5.2)
     coderay (1.1.3)
-    date (3.5.1)
     dotenv (3.2.0)
-    erb (6.0.1)
-    foobara (0.4.1)
+    erb (6.0.7)
+    foobara (0.7.5)
       bigdecimal
       foobara-lru-cache (< 2.0.0)
       foobara-util (< 2.0.0)
       inheritable-thread-vars (< 2.0.0)
-    foobara-ai (1.0.4)
-    foobara-anthropic-api (1.0.5)
+    foobara-ai (1.0.7)
+    foobara-anthropic-api (1.1.1)
       foobara (>= 0.4.1, < 2.0.0)
       foobara-cached-command (< 2.0.0)
       foobara-http-api-command (< 2.0.0)
-    foobara-cached-command (1.0.0)
-      foobara (< 2.0.0)
+    foobara-cached-command (1.0.1)
+      foobara (>= 0.1.1, < 2.0.0)
     foobara-dotenv-loader (0.0.3)
       dotenv
+    foobara-files-generator (0.2.5)
+      foobara (>= 0.1.1, < 2.0.0)
     foobara-http-api-command (0.0.9)
       foobara
-    foobara-http-command-connector (1.1.2)
+    foobara-http-command-connector (1.1.5)
       foobara (>= 0.1.1, < 2.0.0)
-    foobara-json-schema-generator (1.1.0)
+    foobara-json-schema-generator (1.1.1)
       foobara (>= 0.1.1, < 2.0.0)
-    foobara-llm-backed-command (1.0.2)
-      foobara (>= 0.0.136, < 2.0.0)
-      foobara-ai (>= 1.0.0, < 2.0.0)
+    foobara-llm-backed-command (1.0.5)
+      foobara (>= 0.7.3, < 2.0.0)
+      foobara-ai (>= 1.0.6, < 2.0.0)
       foobara-json-schema-generator (>= 1.0.0, < 2.0.0)
     foobara-local-files-crud-driver (0.2.0)
       foobara (>= 0.2.0, < 2.0.0)
     foobara-lru-cache (1.0.0)
-    foobara-ollama-api (1.0.3)
+    foobara-ollama-api (1.0.4)
       foobara (>= 0.1.1, < 2.0.0)
       foobara-cached-command (>= 1.0.0, < 2.0.0)
       foobara-http-api-command (< 2.0.0)
-    foobara-open-ai-api (1.0.1)
-      foobara-cached-command
-      foobara-http-api-command
-    foobara-rack-connector (0.1.0)
+    foobara-open-ai-api (1.0.2)
+      foobara (>= 0.6.4, < 2.0.0)
+      foobara-cached-command (< 2.0.0)
+      foobara-http-api-command (< 2.0.0)
+    foobara-rack-connector (0.1.3)
+      cgi
       foobara (>= 0.1.1, < 2.0.0)
       foobara-http-command-connector (>= 0.1.0, < 2.0.0)
       rack
-    foobara-remote-imports (1.2.0)
-      foobara (>= 0.2.0, < 2.0.0)
-    foobara-sh-cli-connector (1.1.3)
+    foobara-remote-imports (1.2.1)
+      foobara (>= 0.7.2, < 2.0.0)
+    foobara-sh-cli-connector (1.1.4)
       foobara (>= 0.1.1, < 2.0.0)
-    foobara-util (1.0.7)
+      foobara-files-generator (< 2.0.0)
+    foobara-util (1.1.1)
     inheritable-thread-vars (0.0.3)
-    io-console (0.8.2)
-    irb (1.16.0)
+    io-console (0.9.4)
+    irb (1.18.0)
       pp (>= 0.6.0)
+      prism (>= 1.3.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
+    logger (1.7.0)
     method_source (1.1.0)
     nio4r (2.7.5)
     ostruct (0.6.3)
-    pp (0.6.3)
+    pp (0.6.4)
       prettyprint
-    prettyprint (0.2.0)
-    pry (0.15.2)
+    prettyprint (0.2.1)
+    prism (2.0.0)
+    prism (2.0.0-aarch64-linux-gnu)
+    prism (2.0.0-aarch64-linux-musl)
+    prism (2.0.0-arm-linux-gnu)
+    prism (2.0.0-arm-linux-musl)
+    prism (2.0.0-arm64-darwin)
+    prism (2.0.0-x86_64-darwin)
+    prism (2.0.0-x86_64-linux-gnu)
+    prism (2.0.0-x86_64-linux-musl)
+    pry (0.16.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.11.0)
-      byebug (~> 12.0)
-      pry (>= 0.13, < 0.16)
-    psych (5.3.1)
-      date
-      stringio
-    puma (7.1.0)
+      reline (>= 0.6.0)
+    pry-byebug (3.12.0)
+      byebug (~> 13.0)
+      pry (>= 0.13, < 0.17)
+    puma (8.0.2)
       nio4r (~> 2.0)
-    rack (3.2.4)
+    rack (3.2.7)
     rackup (2.3.1)
       rack (>= 3)
-    rdoc (7.0.3)
-      erb
-      psych (>= 4.0.0)
+    rbs (4.2.0)
+      logger
+      prism (>= 1.6.0)
       tsort
-    reline (0.6.3)
+    rdoc (8.1.0)
+      erb
+      prism (>= 1.6.0)
+      rbs (>= 4.0.0)
+      tsort
+    reline (0.7.0)
       io-console (~> 0.5)
-    stringio (3.2.0)
     tsort (0.2.0)
 
 PLATFORMS
+  aarch64-linux-gnu
+  aarch64-linux-musl
+  arm-linux-gnu
+  arm-linux-musl
+  arm64-darwin
   ruby
-  x86_64-linux
+  x86_64-darwin
+  x86_64-linux-gnu
+  x86_64-linux-musl
 
 DEPENDENCIES
   foobara (>= 0.1.1, < 2.0.0)
@@ -107,5 +133,59 @@ DEPENDENCIES
   puma
   rackup
 
+CHECKSUMS
+  bigdecimal (4.1.3) sha256=61ebe1e5e559bdc3cc6f2c0ee7f427321fc838f59611c294356eb04d6e21cf66
+  bundler (4.0.23) sha256=407ba8a1d928f412847f819aa5f8b6aef7c59fb51feb517112af8a165487287b
+  byebug (13.0.0) sha256=d2263efe751941ca520fa29744b71972d39cbc41839496706f5d9b22e92ae05d
+  cgi (0.5.2) sha256=61ca30298171190fd4fa0d8018e57ada456eae9b7a2b78526debf7f0a0e6f8bb
+  coderay (1.1.3) sha256=dc530018a4684512f8f38143cd2a096c9f02a1fc2459edcfe534787a7fc77d4b
+  dotenv (3.2.0) sha256=e375b83121ea7ca4ce20f214740076129ab8514cd81378161f11c03853fe619d
+  erb (6.0.7) sha256=c5ca6dc25b0ef974a44dc8f59fe847577122483b1968a38dec305c60bf91ee92
+  foobara (0.7.5) sha256=c231e4316f1ecf2ec761219a6d81757f71c749edf7311e4e94510a8913bb75cb
+  foobara-ai (1.0.7) sha256=6603bb5693bffa7fcb3f5efc8184b24fe03084e0911ecd4fb87a70c2dc029489
+  foobara-anthropic-api (1.1.1) sha256=5fd77afde6ecf240475b185a4f610f85c0511dd78310373fff0077e6c19c35b3
+  foobara-cached-command (1.0.1) sha256=dc322ab083de76b5ca6a8e2942578a78621d0b04c2e787a3818ee7afc905ac5b
+  foobara-dotenv-loader (0.0.3) sha256=04ad7c088dbcd1b81fc1bab01f4016b1237db1745753785700cb854180b09792
+  foobara-files-generator (0.2.5) sha256=d7ae211b1936ad1f8bf742cfeb56fffaf0afd03e42a7e0a8081bb8aa53b14e26
+  foobara-http-api-command (0.0.9) sha256=516ef89c6df462c7fda789140f9354ac7d04c6b9bf3aa696e98a99700729c531
+  foobara-http-command-connector (1.1.5) sha256=d8bcb4fb861741f86e7cea1f6deaa23c0e8885e476d4aa01b81f13bdba00aa32
+  foobara-json-schema-generator (1.1.1) sha256=3bbebfb784ff7ac7c200d9ce0ef15bbc829bc00a5dc98d631dd8ce619fb1976b
+  foobara-llm-backed-command (1.0.5) sha256=9fd2b12f06401e3f7b9e3e1da494761d602c3899fb98846f90719447b1e99fd3
+  foobara-local-files-crud-driver (0.2.0) sha256=26b6281aaa01ae6df48cfd80460bf0d4507cb45fa1b9ec23bf27d6c77b15e3be
+  foobara-lru-cache (1.0.0) sha256=ff9716e011a4642382dc0e1fd7a80751134b1fbf97d180fd333472a5d20f2029
+  foobara-ollama-api (1.0.4) sha256=9aa46e4c8feb267fda712a1b444564ae10de24b798c1102aa37fa05ccb75c91a
+  foobara-open-ai-api (1.0.2) sha256=e063e38d90dc997c2c4ca0bd862fcfef7988d30efd36e70194bdabfc92cf1566
+  foobara-rack-connector (0.1.3) sha256=8278d535c0bbc03b8f7d4cff65e7314e8890777291c93d22283c339172678089
+  foobara-remote-imports (1.2.1) sha256=a7df3eddeb435cb1652593c0845cb0da499c582996ee76bd26df375285c052ff
+  foobara-sh-cli-connector (1.1.4) sha256=ecd668b9a9b546e40133afc919f8a56fa2e5ac9a2905c6fd11dbba53bed824d3
+  foobara-util (1.1.1) sha256=d4f37678a817a6486c032e975997eeda56399e9b47d7ea175bdb798e8a873400
+  inheritable-thread-vars (0.0.3) sha256=2fe4296a625a0abd8174e39003a0a5a6635def31ddfe2c229921a219ba9e0724
+  io-console (0.9.4) sha256=a403304f32928ee85e56d457b4612ca43f2703b561a3258844992bd24085fbb1
+  irb (1.18.0) sha256=de9454a0703a54704b9811a5ef31a60c86949fbf4013fcf244fabc7c775248e3
+  logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
+  method_source (1.1.0) sha256=181301c9c45b731b4769bc81e8860e72f9161ad7d66dd99103c9ab84f560f5c5
+  nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
+  ostruct (0.6.3) sha256=95a2ed4a4bd1d190784e666b47b2d3f078e4a9efda2fccf18f84ddc6538ed912
+  pp (0.6.4) sha256=dfcb0fce700c41456265922884f9fe195d7fbb0674a3578e6c0f69588e82b570
+  prettyprint (0.2.1) sha256=d555d57ea6d7cf001d4774b693546a6bd88bec1e778ddffb5c60b68ceec4b7d4
+  prism (2.0.0) sha256=fd551446f0c6ca71455ef8d1d40bd2ca1538044834fa22df8837e5095f3a5a39
+  prism (2.0.0-aarch64-linux-gnu) sha256=7df16d47ce2b1f771eaf63137213d84e98495e3f325043bcc09202d7e5730900
+  prism (2.0.0-aarch64-linux-musl) sha256=3140d10be2ea36122af23c1b8af946ca2f09c8f9e7b13f11d77ae13fe68e2681
+  prism (2.0.0-arm-linux-gnu) sha256=2712f462524a202f98c1fd0a59a609fa94937aa53347371726f72a7a8309a13c
+  prism (2.0.0-arm-linux-musl) sha256=d4fb8f775bf940230d5d0057886dac6437b99a6b77395dbe24b154bdfa66f5e9
+  prism (2.0.0-arm64-darwin) sha256=edebbfcc16f6a879f47dac9501b20a7cd95abe96397bb485106d6670541abeb1
+  prism (2.0.0-x86_64-darwin) sha256=9600064b7637a867bdb788dd45d5f5366d4acff2d0884cfe936463d7ab4a250d
+  prism (2.0.0-x86_64-linux-gnu) sha256=e0b4830c94d9dc59e80ad34d98096797f514c9e097b677c4947d89598c7f5cd1
+  prism (2.0.0-x86_64-linux-musl) sha256=69a76ee43c2a671dca88d97658a619b1bd4ec743dd903ccded70fd8f7897eec5
+  pry (0.16.1) sha256=d92d82c86e7f2dc34beec6d2892d5cf5ea517eea22eed3ceabb38ee62a98accc
+  pry-byebug (3.12.0) sha256=594e094ae8a8390a7ad4c7b36ae36e13304ed02664c67417d108dc5f7213d1b7
+  puma (8.0.2) sha256=c8ed871dfbbe66448ea9ffd46692342d9804d4071522b52b5331b7b6e7b686fb
+  rack (3.2.7) sha256=93e13e1c24f93556671d85d2d79fa228c3485815c50d7e2f265b5330c6528fb7
+  rackup (2.3.1) sha256=6c79c26753778e90983761d677a48937ee3192b3ffef6bc963c0950f94688868
+  rbs (4.2.0) sha256=51f7b886dcc05bc09e10b901daa6a81829f6adc03101d6ca9ea4aac6103e0674
+  rdoc (8.1.0) sha256=befc37880a5cfd36dcb176c748b5fd5ee39dd3536a75e81824e4972ce230f60a
+  reline (0.7.0) sha256=5b012d8e55dbf9d450f12bde2cf7d15ff546ae80b3f8f3b30e570d431815583d
+  tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
+
 BUNDLED WITH
-   2.6.5
+  4.0.23
